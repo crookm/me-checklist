@@ -1,0 +1,38 @@
+html, body, #root {
+  height: 100%;
+}
+
+.choose {
+  max-height: 100vh;
+}
+
+.choose > div {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: black;
+
+  transition: all .5s;
+}
+
+.choose a {
+  width: 100%;
+  text-align: center;
+}
+
+.choose svg {
+  width: 50%;
+}
+
+.one > div {
+  background-image: url('/assets/img/game-bg-1.jpg');
+} .two > div {
+  background-image: url('/assets/img/game-bg-2.jpg');
+} .three > div {
+  background-image: url('/assets/img/game-bg-3.jpg');
+}
+
+.choose:hover > div,
+.choose:focus > div {
+  transform: scale(0.9);
+}
