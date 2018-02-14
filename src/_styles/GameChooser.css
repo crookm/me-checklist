@@ -1,5 +1,8 @@
 html, body, #root {
   height: 100%;
+  background: #1e1e1e;
+
+  color: #fff;
 }
 
 .choose {
@@ -15,13 +18,9 @@ html, body, #root {
   transition: all .5s;
 }
 
-.choose a {
-  width: 100%;
-  text-align: center;
-}
-
 .choose svg {
   width: 50%;
+  margin: 0 auto;
 }
 
 .one > div {
