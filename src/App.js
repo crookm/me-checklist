@@ -20,6 +20,28 @@ import LogoME2 from './_assets/LogoME2';
 import LogoME3 from './_assets/LogoME3';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showHelp: true
+    };
+
+    this.toggleHelp = this.toggleHelp.bind(this);
+  }
+
+
+  componentDidMount() {
+    if (typeof(Storage) !== 'undefined'){
+      if (typeof(window.localStorage['ui_settings']) === 'string') {
+        if (!JSON.parse(window.localStorage['ui_settings']).showHelp) {
+          this.setState({ showHelp: false });
+        }
+      }
+    }
+  }
+
+
+  // functions for child pages
   handleToggle(game, key, items, set) {
     let toggled = {
       done: items[key].completion.done ? false : true,
@@ -48,11 +70,58 @@ class App extends Component {
     }
   }
 
+
+  // functions for this page
+  toggleHelp() {
+    let showHelp = this.state.showHelp ? false : true;
+    this.setState({ showHelp: showHelp });
+
+    if (typeof(Storage) !== 'undefined'){
+      let ui_settings = {};
+      if (typeof(window.localStorage['ui_settings']) === 'string') {
+        ui_settings = JSON.parse(window.localStorage['ui_settings']);
+        ui_settings.showHelp = showHelp;
+      } else {
+        ui_settings = { showHelp: showHelp };
+      }
+
+      window.localStorage['ui_settings'] = JSON.stringify(ui_settings);
+    }
+  }
+
+
   render() {
     return (
       <Router>
         <Switch>
-          <Route path="/" exact component={GameChooser} />
+          <Route path="/" exact render={props => (
+            <div style={ { height: '100%' } }>
+              {this.state.showHelp && <div className="help">
+                <span>Select a game below to track</span>
+                <a className="link float-right">About</a>
+                <a className="close float-right" onClick={this.toggleHelp}>&times;</a>
+              </div>}
+              {!this.state.showHelp && <a className="help-hidden" onClick={this.toggleHelp}>&dArr;</a>}
+              
+              <div className={this.state.showHelp ? 'row expanded medium-unstack help-mob-comp' : 'row expanded medium-unstack'} style={ { height: '100%' } }>
+                <Link to="/one" className="columns choose one">
+                  <div className="row align-middle" style={ { height: '100%' } }>
+                    <LogoME1 />
+                  </div>
+                </Link>
+                <Link to="/two" className="columns choose two">
+                  <div className="row align-middle" style={ { height: '100%' } }>
+                    <LogoME2 />
+                  </div>
+                </Link>
+                <Link to="/three" className="columns choose three">
+                  <div className="row align-middle" style={ { height: '100%' } }>
+                    <LogoME3 />
+                  </div>
+                </Link>
+              </div>
+            </div>
+          )} />
           <Route path="/one" render={props => <ME1 {...props} handleToggle={this.handleToggle} loadUserData={this.loadUserData} />} />
           <Route path="/two" render={props => <ME2 {...props} handleToggle={this.handleToggle} loadUserData={this.loadUserData} />} />
           <Route path="/three" render={props => <ME3 {...props} handleToggle={this.handleToggle} loadUserData={this.loadUserData} />} />
@@ -62,25 +131,5 @@ class App extends Component {
     );
   }
 }
-
-const GameChooser = () => (
-  <div className="row expanded medium-unstack" style={ { height: '100%' } }>
-    <Link to="/one" className="columns choose one">
-      <div className="row align-middle" style={ { height: '100%' } }>
-        <LogoME1 />
-      </div>
-    </Link>
-    <Link to="/two" className="columns choose two">
-      <div className="row align-middle" style={ { height: '100%' } }>
-        <LogoME2 />
-      </div>
-    </Link>
-    <Link to="/three" className="columns choose three">
-      <div className="row align-middle" style={ { height: '100%' } }>
-        <LogoME3 />
-      </div>
-    </Link>
-  </div>
-);
 
 export default App;
