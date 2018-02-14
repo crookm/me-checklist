@@ -15,14 +15,25 @@ import ME2 from './_pages/ME2';
 import ME3 from './_pages/ME3';
 
 class App extends Component {
+  handleToggle(game, key, items, set) {
+    let toggled = {
+      done: items[key].completion.done ? false : true,
+      datetime: new Date()
+    };
+
+    items[key].completion = toggled;
+
+    set(items); // return the new items so caller can update state
+  }
+
   render() {
     return (
       <Router>
         <Switch>
           <Route path="/" exact component={GameChooser} />
-          <Route path="/one" component={ME1} />
-          <Route path="/two" component={ME2} />
-          <Route path="/three" component={ME3} />
+          <Route path="/one" render={props => <ME1 {...props} handleToggle={this.handleToggle} />} />
+          <Route path="/two" render={props => <ME2 {...props} handleToggle={this.handleToggle} />} />
+          <Route path="/three" render={props => <ME3 {...props} handleToggle={this.handleToggle} />} />
           <Route component={NotFound} />
         </Switch>
       </Router>
