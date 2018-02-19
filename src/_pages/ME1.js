@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import Checklist from '../_components/Checklist';
+import Checklist from "../_components/Checklist";
 
-const GAME = 'one';
+const GAME = "one";
 
 class ME1 extends Component {
   constructor(props) {
@@ -10,11 +10,11 @@ class ME1 extends Component {
     this.state = {
       items: [
         {
-          title: 'something',
-          desc: 'a longer description of what you need to do',
+          title: "something",
+          desc: "a longer description of what you need to do",
           timeline: {
-            before: 'do before this event',
-            after: 'do after this even'
+            before: "do before this event",
+            after: "do after this even"
           },
           completion: {
             done: false,
@@ -22,11 +22,11 @@ class ME1 extends Component {
           }
         },
         {
-          title: 'something 2',
-          desc: 'a longer description of what you need to do',
+          title: "something 2",
+          desc: "a longer description of what you need to do",
           timeline: {
-            before: 'do before this event',
-            after: 'do after this even'
+            before: "do before this event",
+            after: "do after this even"
           },
           completion: {
             done: false,
@@ -37,21 +37,23 @@ class ME1 extends Component {
     };
     this.toggleCompleted = this.toggleCompleted.bind(this);
   }
-  
+
   componentDidMount() {
     this.props.loadUserData(GAME, this.state.items, updated_items => {
-      this.setState({ items: updated_items })
+      this.setState({ items: updated_items });
     });
   }
 
   toggleCompleted(key) {
     this.props.handleToggle(GAME, key, this.state.items, new_items => {
-      this.setState({ items: new_items })
+      this.setState({ items: new_items });
     });
   }
 
   render() {
-    return (<Checklist items={this.state.items} onToggle={this.toggleCompleted} />);
+    return (
+      <Checklist items={this.state.items} onToggle={this.toggleCompleted} />
+    );
   }
 }
 

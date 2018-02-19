@@ -1,23 +1,20 @@
-import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route, Switch, Link
-} from 'react-router-dom';
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
-import './_styles/GameChooser.css';
+import "./_styles/GameChooser.css";
 
 // error pages
-import NotFound from './_pages/_errors/NotFound';
+import NotFound from "./_pages/_errors/NotFound";
 
 // pages
-import ME1 from './_pages/ME1';
-import ME2 from './_pages/ME2';
-import ME3 from './_pages/ME3';
+import ME1 from "./_pages/ME1";
+import ME2 from "./_pages/ME2";
+import ME3 from "./_pages/ME3";
 
 // assets
-import LogoME1 from './_assets/LogoME1';
-import LogoME2 from './_assets/LogoME2';
-import LogoME3 from './_assets/LogoME3';
+import LogoME1 from "./_assets/LogoME1";
+import LogoME2 from "./_assets/LogoME2";
+import LogoME3 from "./_assets/LogoME3";
 
 class App extends Component {
   constructor(props) {
@@ -29,17 +26,15 @@ class App extends Component {
     this.toggleHelp = this.toggleHelp.bind(this);
   }
 
-
   componentDidMount() {
-    if (typeof(Storage) !== 'undefined'){
-      if (typeof(window.localStorage['ui_settings']) === 'string') {
-        if (!JSON.parse(window.localStorage['ui_settings']).showHelp) {
+    if (typeof Storage !== "undefined") {
+      if (typeof window.localStorage["ui_settings"] === "string") {
+        if (!JSON.parse(window.localStorage["ui_settings"]).showHelp) {
           this.setState({ showHelp: false });
         }
       }
     }
   }
-
 
   // functions for child pages
   handleToggle(game, key, items, set) {
@@ -50,7 +45,7 @@ class App extends Component {
 
     items[key].completion = toggled;
 
-    if (typeof(Storage) !== 'undefined'){
+    if (typeof Storage !== "undefined") {
       window.localStorage[game] = JSON.stringify(items.map(i => i.completion));
     }
 
@@ -58,73 +53,128 @@ class App extends Component {
   }
 
   loadUserData(game, def, set) {
-    if (typeof(Storage) !== 'undefined'){
-      if (typeof(window.localStorage[game]) === 'string') {
+    if (typeof Storage !== "undefined") {
+      if (typeof window.localStorage[game] === "string") {
         let data = JSON.parse(window.localStorage[game]);
-        set(def.map((item, i) => {
-          item.completion = data[i];
-          item.completion.datetime = new Date(item.completion.datetime);
-          return item;
-        }));
+        set(
+          def.map((item, i) => {
+            item.completion = data[i];
+            item.completion.datetime = new Date(item.completion.datetime);
+            return item;
+          })
+        );
       }
     }
   }
-
 
   // functions for this page
   toggleHelp() {
     let showHelp = this.state.showHelp ? false : true;
     this.setState({ showHelp: showHelp });
 
-    if (typeof(Storage) !== 'undefined'){
+    if (typeof Storage !== "undefined") {
       let ui_settings = {};
-      if (typeof(window.localStorage['ui_settings']) === 'string') {
-        ui_settings = JSON.parse(window.localStorage['ui_settings']);
+      if (typeof window.localStorage["ui_settings"] === "string") {
+        ui_settings = JSON.parse(window.localStorage["ui_settings"]);
         ui_settings.showHelp = showHelp;
       } else {
         ui_settings = { showHelp: showHelp };
       }
 
-      window.localStorage['ui_settings'] = JSON.stringify(ui_settings);
+      window.localStorage["ui_settings"] = JSON.stringify(ui_settings);
     }
   }
-
 
   render() {
     return (
       <Router>
         <Switch>
-          <Route path="/" exact render={props => (
-            <div style={ { height: '100%' } }>
-              {this.state.showHelp && <div className="help">
-                <span>Select a game below to track</span>
-                <a className="link float-right">About</a>
-                <a className="close float-right" onClick={this.toggleHelp}>&times;</a>
-              </div>}
-              {!this.state.showHelp && <a className="help-hidden" onClick={this.toggleHelp}>&dArr;</a>}
-              
-              <div className={this.state.showHelp ? 'row expanded medium-unstack help-mob-comp' : 'row expanded medium-unstack'} style={ { height: '100%' } }>
-                <Link to="/one" className="columns choose one">
-                  <div className="row align-middle" style={ { height: '100%' } }>
-                    <LogoME1 />
+          <Route
+            path="/"
+            exact
+            render={props => (
+              <div style={{ height: "100%" }}>
+                {this.state.showHelp && (
+                  <div className="help">
+                    <span>Select a game below to track</span>
+                    <a className="link float-right">About</a>
+                    <a className="close float-right" onClick={this.toggleHelp}>
+                      &times;
+                    </a>
                   </div>
-                </Link>
-                <Link to="/two" className="columns choose two">
-                  <div className="row align-middle" style={ { height: '100%' } }>
-                    <LogoME2 />
-                  </div>
-                </Link>
-                <Link to="/three" className="columns choose three">
-                  <div className="row align-middle" style={ { height: '100%' } }>
-                    <LogoME3 />
-                  </div>
-                </Link>
+                )}
+                {!this.state.showHelp && (
+                  <a className="help-hidden" onClick={this.toggleHelp}>
+                    &dArr;
+                  </a>
+                )}
+
+                <div
+                  className={
+                    this.state.showHelp
+                      ? "row expanded medium-unstack help-mob-comp"
+                      : "row expanded medium-unstack"
+                  }
+                  style={{ height: "100%" }}
+                >
+                  <Link to="/one" className="columns choose one">
+                    <div
+                      className="row align-middle"
+                      style={{ height: "100%" }}
+                    >
+                      <LogoME1 />
+                    </div>
+                  </Link>
+                  <Link to="/two" className="columns choose two">
+                    <div
+                      className="row align-middle"
+                      style={{ height: "100%" }}
+                    >
+                      <LogoME2 />
+                    </div>
+                  </Link>
+                  <Link to="/three" className="columns choose three">
+                    <div
+                      className="row align-middle"
+                      style={{ height: "100%" }}
+                    >
+                      <LogoME3 />
+                    </div>
+                  </Link>
+                </div>
               </div>
-            </div>
-          )} />
-          <Route path="/one" render={props => <ME1 {...props} handleToggle={this.handleToggle} loadUserData={this.loadUserData} />} />
-          <Route path="/two" render={props => <ME2 {...props} handleToggle={this.handleToggle} loadUserData={this.loadUserData} />} />
-          <Route path="/three" render={props => <ME3 {...props} handleToggle={this.handleToggle} loadUserData={this.loadUserData} />} />
+            )}
+          />
+          <Route
+            path="/one"
+            render={props => (
+              <ME1
+                {...props}
+                handleToggle={this.handleToggle}
+                loadUserData={this.loadUserData}
+              />
+            )}
+          />
+          <Route
+            path="/two"
+            render={props => (
+              <ME2
+                {...props}
+                handleToggle={this.handleToggle}
+                loadUserData={this.loadUserData}
+              />
+            )}
+          />
+          <Route
+            path="/three"
+            render={props => (
+              <ME3
+                {...props}
+                handleToggle={this.handleToggle}
+                loadUserData={this.loadUserData}
+              />
+            )}
+          />
           <Route component={NotFound} />
         </Switch>
       </Router>
