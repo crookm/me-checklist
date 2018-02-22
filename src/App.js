@@ -7,6 +7,7 @@ import "./_styles/GameChooser.css";
 import NotFound from "./_pages/_errors/NotFound";
 
 // pages
+import About from "./_pages/About";
 import ME1 from "./_pages/ME1";
 import ME2 from "./_pages/ME2";
 import ME3 from "./_pages/ME3";
@@ -97,7 +98,7 @@ class App extends Component {
                 {this.state.showHelp && (
                   <div className="help">
                     <span>Select a game below to track</span>
-                    <a className="link float-right">About</a>
+                    <Link to="/about" className="link float-right">About</Link>
                     <a className="close float-right" onClick={this.toggleHelp}>
                       &times;
                     </a>
@@ -145,6 +146,7 @@ class App extends Component {
               </div>
             )}
           />
+          <Route path="/about" component={About} />
           <Route
             path="/one"
             render={props => (
