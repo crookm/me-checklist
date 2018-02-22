@@ -3,38 +3,15 @@ import React, { Component } from "react";
 import Checklist from "../_components/Checklist";
 import LogoME1 from "../_assets/LogoME1";
 
+import ME1List from "../_assets/ME1List";
+
 const GAME = "one";
 
 class ME1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: [
-        {
-          title: "something",
-          desc: "a longer description of what you need to do",
-          timeline: {
-            before: "do before this event",
-            after: "do after this even"
-          },
-          completion: {
-            done: false,
-            datetime: null
-          }
-        },
-        {
-          title: "something 2 rellly long sdjkf kjsh dkjahdkfjhs",
-          desc: "a longer description of what you need to do",
-          timeline: {
-            before: "do before this event",
-            after: "do after this even"
-          },
-          completion: {
-            done: false,
-            datetime: null
-          }
-        }
-      ]
+      items: ME1List
     };
     this.toggleCompleted = this.toggleCompleted.bind(this);
   }

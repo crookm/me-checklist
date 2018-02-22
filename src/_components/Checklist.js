@@ -5,7 +5,7 @@ class Checklist extends Component {
   toggleCarat(index) {
     window.$(`.i-${index}`).toggleClass("active");
     window.$(`.i-${index} .carat`).toggleClass("down");
-    window.$(`.i-${index} .info`).slideToggle();
+    window.$(`.i-${index} .info`).slideToggle("fast");
   }
 
   componentDidMount() {
