@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import Checklist from "../_components/Checklist";
+import LogoME1 from "../_assets/LogoME1";
 
 const GAME = "one";
 
@@ -22,7 +23,7 @@ class ME1 extends Component {
           }
         },
         {
-          title: "something 2",
+          title: "something 2 rellly long sdjkf kjsh dkjahdkfjhs",
           desc: "a longer description of what you need to do",
           timeline: {
             before: "do before this event",
@@ -52,7 +53,14 @@ class ME1 extends Component {
 
   render() {
     return (
-      <Checklist items={this.state.items} onToggle={this.toggleCompleted} />
+      <div className="row align-center">
+        <div className="columns medium-6">
+          <LogoME1
+            style={{ width: "250px", margin: "50px auto", display: "block" }}
+          />
+          <Checklist items={this.state.items} onToggle={this.toggleCompleted} />
+        </div>
+      </div>
     );
   }
 }
