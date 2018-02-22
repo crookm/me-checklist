@@ -5,6 +5,15 @@
 .checklist .item .head {
   background: #dadada;
   padding: 10px;
+
+  transition: all 0.4s;
+}
+
+.checklist .item.active .head {
+  -webkit-box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.4);
+
+  position: relative;
 }
 
 .checklist .item:nth-child(even) .head {
@@ -17,6 +26,20 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.checklist .title p a {
+  color: #343434;
+}
+
+.checklist .item .info {
+  background: #464646;
+  color: #dadada;
+  padding: 25px;
+}
+
+.checklist .item .info .timeline {
+  padding: 25px 0 0;
 }
 
 .checktainer {
@@ -48,6 +71,8 @@
 
   -webkit-box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.2);
+
+  transition: all 0.4s;
 }
 
 .checktainer:hover input ~ .checkmark {
@@ -101,12 +126,26 @@
   transform: rotate(45deg);
 }
 
-.carat-down {
+.carat {
   margin: 17px 0 0 0;
   width: 0;
   height: 0;
+
+  transition: all 0.4s;
+}
+
+.carat.down {
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
 
-  border-top: 10px solid #343434;
+  border-top: 10px solid #343434 !important;
+  border-bottom: none !important;
+}
+
+.carat.up {
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+
+  border-bottom: 10px solid #343434;
+  border-top: none;
 }
