@@ -18,14 +18,14 @@ class Checklist extends Component {
                   <span className="checkmark" />
                 </label>
               </div>
-              <div className="columns title"><p>{item.title}</p></div>
+              <div className="columns title">
+                <p>{item.title}</p>
+              </div>
               <div className="columns shrink">
                 <div className="carat-down" />
               </div>
             </div>
-            <div className="row info">
-              the stuff
-            </div>
+            <div className="row info">the stuff</div>
           </div>
         ))}
       </div>
