@@ -40,14 +40,18 @@ class App extends Component {
   // functions for child pages
   handleToggle(game, key, items, set) {
     let toggled = {
-      done: items[key].completion.done ? false : true,
+      done: !items[key].completion.done,
       datetime: new Date()
     };
 
     items[key].completion = toggled;
 
     if (typeof Storage !== "undefined") {
-      window.localStorage[game] = JSON.stringify(items.map(i => i.completion));
+      window.localStorage[game] = JSON.stringify(
+        Object.keys(items).reduce((out, current) => {
+          out[current] = items[current].completion;
+          return out;
+        }, {}));
     }
 
     set(items); // return the new items so caller can update state
@@ -58,11 +62,15 @@ class App extends Component {
       if (typeof window.localStorage[game] === "string") {
         let data = JSON.parse(window.localStorage[game]);
         set(
-          def.map((item, i) => {
-            item.completion = data[i];
-            item.completion.datetime = new Date(item.completion.datetime);
-            return item;
-          })
+          Object.keys(def).reduce((out, current) => {
+            out[current] = def[current];
+            // json stores date objects as strings, so have to convert back
+            out[current].completion = {
+              done: data[current].done,
+              datetime: new Date(data[current].datetime)
+            };
+            return out;
+          }, {})
         );
       }
     }
