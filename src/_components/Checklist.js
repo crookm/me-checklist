@@ -15,9 +15,9 @@ class Checklist extends Component {
   render() {
     return (
       <div className="checklist">
-        {Object.entries(this.props.items).map(
-          ([key, entry]) => (
-            <div key={key} className={`item i-${key}`}>
+        {Object.entries(this.props.items).map(([key, entry]) => (
+          <div key={key} className={`item i-${key}`}>
+            {entry["wiki"] ? (
               <div className="row head">
                 <div className="columns shrink">
                   <label className="checktainer">
@@ -31,7 +31,37 @@ class Checklist extends Component {
                 </div>
                 <div className="columns title">
                   <p>
-                    <a onClick={e => this.props.onToggle(key, e)}>
+                    <a
+                      onClick={e => this.props.onToggle(key, e)}
+                      dangerouslySetInnerHTML={{ __html: entry.title }}
+                    />
+                  </p>
+                </div>
+                <div className="columns shrink">
+                  <a onClick={e => this.toggleCarat(key, e)}>
+                    <div className="carat down up" />
+                  </a>
+                </div>
+              </div>
+            ) : (
+              // no wiki entry, so it's a hint
+              <div
+                className="row head"
+                style={{
+                  padding: "0 10px",
+                  background: "#5f5f5f",
+                  borderBottom: "1px solid #444242"
+                }}
+              >
+                <div className="columns shrink">
+                  <label className="checktainer" />
+                </div>
+                <div className="columns title">
+                  <p>
+                    <a
+                      onClick={e => this.props.onToggle(key, e)}
+                      style={{ color: "#f0f0f0" }}
+                    >
                       {entry.title}
                     </a>
                   </p>
@@ -42,25 +72,33 @@ class Checklist extends Component {
                   </a>
                 </div>
               </div>
-              <div className="row info">
-                <div className="columns small-12">
-                  <h3>{entry.title}</h3>
-                  <p>{entry.desc}</p>
+            )}
 
-                  <div className="row timeline">
-                    <div className="columns medium-6">
-                      <h4>Complete after</h4>
-                      <p>{entry.timeline.after}</p>
-                    </div>
-                    <div className="columns medium-6">
-                      <h4>Complete before</h4>
-                      <p>{entry.timeline.before}</p>
-                    </div>
+            <div className="row info">
+              <div className="columns small-12">
+                <h3 dangerouslySetInnerHTML={{ __html: entry.title }} />
+                <p dangerouslySetInnerHTML={{ __html: entry.desc }} />
+
+                <div className="row timeline">
+                  <div className="columns medium-6">
+                    <h4>Complete after</h4>
+                    <p
+                      dangerouslySetInnerHTML={{ __html: entry.timeline.after }}
+                    />
+                  </div>
+                  <div className="columns medium-6">
+                    <h4>Complete before</h4>
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: entry.timeline.before
+                      }}
+                    />
                   </div>
                 </div>
               </div>
             </div>
-          ))}
+          </div>
+        ))}
       </div>
     );
   }
