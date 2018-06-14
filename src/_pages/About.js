@@ -39,11 +39,11 @@ class About extends Component {
             <p>
               If you would like to contribute to this website, however, you can
               check out the{" "}
-              <Link to="https://github.com/crookm/me-checklist">
+              <a href="https://github.com/crookm/me-checklist">
                 repository
-              </Link>. If you'd like to visit me on{" "}
-              <Link to="https://www.crookm.com/">my blog</Link>, or follow me on{" "}
-              <Link to="https://twitter.com/mattlc_3">Twitter</Link>, I'd
+              </a>. If you'd like to visit me on{" "}
+              <a href="https://www.crookm.com/">my blog</a>, or follow me on{" "}
+              <a href="https://twitter.com/mattlc_3">Twitter</a>, I'd
               appreaciate it.
             </p>
             <br />
