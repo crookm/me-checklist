@@ -33,7 +33,7 @@ class ME3 extends Component {
       <div className="row align-center">
         <div className="columns medium-6">
           <LogoME3
-            style={{ width: "250px", margin: "50px auto", display: "block" }}
+            style={{ width: "250px", margin: "50px auto 30px", display: "block" }}
           />
           <Checklist items={this.state.items} onToggle={this.toggleCompleted} />
         </div>

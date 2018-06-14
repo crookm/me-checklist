@@ -80,7 +80,7 @@ export default {
   },
   13: {
     title: `Citadel: Asari Consort`,
-    desc: `From the Presidium, cross the bridge and go to the Consort's Chambers, speak to Nelyna. You will ge a session with the consort as you're about to leave. Complete this line of missions. <br /><br />
+    desc: `From the Presidium, cross the bridge and go to the Consort's Chambers, speak to Nelyna. You will get a session with the consort as you're about to leave. Complete this line of missions. <br /><br />
       After successfully convincing Septimus, complete <b>Citadel: Xeltan's Complaint</b> before returning to Sha'ira.`,
     wiki: `http://masseffect.wikia.com/wiki/Citadel:_Asari_Consort`,
     timeline: {

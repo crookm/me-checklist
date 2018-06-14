@@ -43,7 +43,7 @@ class About extends Component {
                 repository
               </Link>. If you'd like to visit me on{" "}
               <Link to="https://www.crookm.com/">my blog</Link>, or follow me on{" "}
-              <Link to="https://twitter.com/MattLCrook">Twitter</Link>, I'd
+              <Link to="https://twitter.com/mattlc_3">Twitter</Link>, I'd
               appreaciate it.
             </p>
             <br />

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "../_styles/Checklist.css";
 
 class Checklist extends Component {
@@ -20,6 +21,9 @@ class Checklist extends Component {
   render() {
     return (
       <div className="checklist">
+        <p>
+          <Link to="/">&laquo; return to game list</Link>
+        </p>
         {Object.entries(this.props.items).map(([key, entry]) => (
           <div key={key} className={`item i-${key}`}>
             {entry["wiki"] ? (
@@ -60,7 +64,7 @@ class Checklist extends Component {
                 onClick={e => this.toggleCarat(key, e)}
               >
                 <div className="columns shrink">
-                  <label className="checktainer" />
+                  <label className="checktainer" style={{ cursor: "unset" }} />
                 </div>
                 <div className="columns title">
                   <p>
@@ -100,6 +104,9 @@ class Checklist extends Component {
             </div>
           </div>
         ))}
+        <p style={{ margin: "1rem 0" }}>
+          <Link to="/">&laquo; return to game list</Link>
+        </p>
       </div>
     );
   }
