@@ -25,9 +25,9 @@ export default {
     }
   },
   2: {
-    title: `HINT: Electronics skill`,
-    desc: `Further along the game, a medium electronics skill will provide an easy bypass to a challenge.<br /><br />
-      You can choose to level up this skill on a squadmate, such as <b>Kaidan</b>, instead of using your own points. Remember to bring them on the Noveria missions.`,
+    title: `HINT: Electronics and decryption skills`,
+    desc: `Further along the game, a medium electronics and decryption skill will provide an easy bypass to a challenge.<br /><br />
+      You can choose to level up these skills on a squadmate, such as <b>Kaidan</b>, instead of using your own points. Remember to bring them on the Noveria missions.`,
     timeline: {
       before: `Chapter 4: Noveria - Geth Interest`,
       after: `Prologue`
@@ -132,11 +132,12 @@ export default {
     }
   },
   18: {
-    title: `HINT: Upgrade grenade capacity`,
-    desc: `Visit the shops on the Citadel, and look for any opportunity to upgrade your grenade capacity. You will need them later on.`,
+    title: `Citadel: Doctor Michel`,
+    desc: `Dr. Chloe Michel is being blackmailed. Someone learned about her dismissal from a previous employer and the circumstances surrounding it. Now, if she doesn't give these people her supplies they're threatening to go public with what they know.`,
+    wiki: `http://masseffect.wikia.com/wiki/Citadel:_Doctor_Michel`,
     timeline: {
-      before: `Chapter 3: Feros - Geth Attack`,
-      after: `Prologue`
+      before: `Chapter 2: Finding Liara`,
+      after: `Citadel: Rita's Sister`
     },
     completion: {
       done: false,
@@ -144,12 +145,11 @@ export default {
     }
   },
   19: {
-    title: `Citadel: Doctor Michel`,
-    desc: `Dr. Chloe Michel is being blackmailed. Someone learned about her dismissal from a previous employer and the circumstances surrounding it. Now, if she doesn't give these people her supplies they're threatening to go public with what they know.`,
-    wiki: `http://masseffect.wikia.com/wiki/Citadel:_Doctor_Michel`,
+    title: `HINT: Upgrade grenade capacity`,
+    desc: `Visit the shops on the Citadel, and look for any opportunity to upgrade your grenade capacity. You will need them later on.`,
     timeline: {
-      before: `Chapter 2: Finding Liara`,
-      after: `Citadel: Rita's Sister`
+      before: `Chapter 3: Feros - Geth Attack`,
+      after: `Prologue`
     },
     completion: {
       done: false,
@@ -183,7 +183,7 @@ export default {
   },
   25: {
     title: `REMINDER: How are your skills?`,
-    desc: `Remember to level your electronics skill mildly, and your charm (or) intimidate skill aggressively!`,
+    desc: `Remember to level your electronics and decryption skills mildly, and your charm (or) intimidate skill aggressively!`,
     timeline: {
       before: `Chapter 4: Noveria - Geth Interest`,
       after: `Prologue`
@@ -286,4 +286,158 @@ export default {
       datetime: null
     }
   },
+  40: {
+    title: `<b>Garrus</b>: Find Dr. Saleon`,
+    desc: `After regularly talking to Garrus, he told you about his encounter with Dr. Saleon, the geneticist. He regrets letting him escape the first time and hopes that you'll be able to track him down and bring him to justice.`,
+    wiki: `http://masseffect.wikia.com/wiki/Garrus:_Find_Dr._Saleon`,
+    timeline: {
+      before: `Chapter 4: Noveria - Geth Interest`,
+      after: `Feros: The Thorian`
+    },
+    completion: {
+      done: false,
+      datetime: null
+    }
+  },
+  42: {
+    title: `HINT: Take Garrus with you`,
+    desc: `In Garrus: Find Dr. Saleon, make sure Garrus is actually in your squad for the mission.`,
+    timeline: {
+      before: `Garrus: Find Dr. Saleon`,
+      after: `Garrus: Find Dr. Saleon`
+    },
+    completion: {
+      done: false,
+      datetime: null
+    }
+  },
+  43: {
+    title: `<b>Tali</b>: Tali and the Geth`,
+    desc: `This assignment is acquired at the end of UNC: Geth Incursions, which is acquired by either hacking one of the geth terminals on Feros, or by simply travelling to the Armstrong Nebula.<br /><br />
+      Commander Shepard has acquired detailed data files from a geth outpost. Given the history of the quarians, these might be of interest to Tali.<br /><br />
+      <b>Note</b>: Make sure Tali gets the data, regardless of your play-style. You will get a paragon point for letting her take a copy.`,
+    wiki: `http://masseffect.wikia.com/wiki/Garrus:_Find_Dr._Saleon`,
+    timeline: {
+      before: `Chapter 4: Noveria - Geth Interest`,
+      after: `Feros: The Thorian`
+    },
+    completion: {
+      done: false,
+      datetime: null
+    }
+  },
+  48: {
+    title: `<b>Wrex</b>: Family Armor`,
+    desc: `After talking to Wrex you learned that he's looking for his family's ceremonial armor. It was taken by the turians after the Krogan Rebellion and now a profiteer named Tonn Actus has it.`,
+    wiki: `http://masseffect.wikia.com/wiki/Wrex:_Family_Armor`,
+    timeline: {
+      before: `Chapter 4: Noveria - Geth Interest`,
+      after: `Chapter 1: Citadel - Expose Saren`
+    },
+    completion: {
+      done: false,
+      datetime: null
+    }
+  },
+  49: {
+    title: `HINT: Take Wrex with you`,
+    desc: `In Wrex: Family Armor, make sure Garrus is actually in your squad for the mission.`,
+    timeline: {
+      before: `Wrex: Family Armor`,
+      after: `Wrex: Family Armor`
+    },
+    completion: {
+      done: false,
+      datetime: null
+    }
+  },
+  50: {
+    title: `<b>Chapter 4</b>: Noveria - Geth Interest`,
+    desc: `The Council has received reports of geth interest in the corporate research colony of Noveria. The Council needs to know why.`,
+    wiki: `http://masseffect.wikia.com/wiki/Noveria:_Geth_Interest`,
+    timeline: {
+      before: `Noveria: Matriarch Benezia`,
+      after: `Chapter 3: Feros - Geth Attack`
+    },
+    completion: {
+      done: false,
+      datetime: null
+    }
+  },
+  52: {
+    title: `HINT: Take the Lorik Qui'in route`,
+    desc: `To get a garage pass, talk to Lorik Qui'in and do his mission. On the way back from the Synthetic Insights offices, help Parasini by convincing Qui'in to testify (using your charm/intimidate skill).`,
+    timeline: {
+      before: `Noveria: Matriarch Benezia`,
+      after: `Chapter 4: Noveria - Geth Interest (after arriving at the port)`
+    },
+    completion: {
+      done: false,
+      datetime: null
+    }
+  },
+  53: {
+    title: `Noveria: Quarantine`,
+    desc: `Dr. Cohen told you that several of the scientists at Rift Station were sickened by an experiment gone awry. Captain Ventralis won't allow anyone to go into the labs to manufacture a cure for them. He might make an exception in your case.`,
+    wiki: `http://masseffect.wikia.com/wiki/Noveria:_Quarantine`,
+    timeline: {
+      before: `Noveria: Matriarch Benezia`,
+      after: `Chapter 4: Noveria - Geth Interest`
+    },
+    completion: {
+      done: false,
+      datetime: null
+    }
+  },
+  55: {
+    title: `Noveria: Matriarch Benezia`,
+    desc: `Matriarch Benezia, a top advisor to Saren, is on Noveria. If you can capture her, it is likely she has insight into his plans.`,
+    wiki: `http://masseffect.wikia.com/wiki/Noveria:_Matriarch_Benezia`,
+    timeline: {
+      before: `Noveria: The Hot Labs`,
+      after: `Noveria: Quarantine`
+    },
+    completion: {
+      done: false,
+      datetime: null
+    }
+  },
+  56: {
+    title: `HINT: Kill the Rachni Queen`,
+    desc: `After defeating Matriarch Benezia, you will have to decide the fate of the living Rachni Queen. I recommend its death.`,
+    timeline: {
+      before: `Noveria: The Hot Labs`,
+      after: `Noveria: Matriarch Benezia`
+    },
+    completion: {
+      done: false,
+      datetime: null
+    }
+  },
+  58: {
+    title: `Noveria: The Hot Labs`,
+    desc: `The Hot Labs have a self-destruct mechanism called a neutron purge. This would eliminate all of the creatures that have overrun the facility.`,
+    wiki: `http://masseffect.wikia.com/wiki/Noveria:_The_Hot_Labs`,
+    timeline: {
+      before: `<b>Chapter 5</b>: Virmire - Saren's Plan`,
+      after: `Noveria: Matriarch Benezia`
+    },
+    completion: {
+      done: false,
+      datetime: null
+    }
+  },
+  59: {
+    title: `Noveria: The Hot Labs`,
+    desc: `The Hot Labs have a self-destruct mechanism called a neutron purge. This would eliminate all of the creatures that have overrun the facility.`,
+    wiki: `http://masseffect.wikia.com/wiki/Noveria:_The_Hot_Labs`,
+    timeline: {
+      before: `<b>Chapter 5</b>: Virmire - Saren's Plan`,
+      after: `Noveria: Matriarch Benezia`
+    },
+    completion: {
+      done: false,
+      datetime: null
+    }
+  }
 };
