@@ -426,18 +426,5 @@ export default {
       done: false,
       datetime: null
     }
-  },
-  59: {
-    title: `Noveria: The Hot Labs`,
-    desc: `The Hot Labs have a self-destruct mechanism called a neutron purge. This would eliminate all of the creatures that have overrun the facility.`,
-    wiki: `http://masseffect.wikia.com/wiki/Noveria:_The_Hot_Labs`,
-    timeline: {
-      before: `<b>Chapter 5</b>: Virmire - Saren's Plan`,
-      after: `Noveria: Matriarch Benezia`
-    },
-    completion: {
-      done: false,
-      datetime: null
-    }
   }
 };
