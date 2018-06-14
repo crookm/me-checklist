@@ -66,8 +66,8 @@ class App extends Component {
             out[current] = def[current];
             // json stores date objects as strings, so have to convert back
             out[current].completion = {
-              done: data[current].done,
-              datetime: new Date(data[current].datetime)
+              done: data[current] ? data[current].done : false,
+              datetime: data[current] ? new Date(data[current].datetime) : null
             };
             return out;
           }, {})
