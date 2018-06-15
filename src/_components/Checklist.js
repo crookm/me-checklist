@@ -53,7 +53,7 @@ class Checklist extends Component {
                         margin: "0 0 0 10px"
                       }}
                     >
-                      <i class="material-icons" style={{ fontSize: "15px" }}>
+                      <i className="material-icons" style={{ fontSize: "15px" }}>
                         launch
                       </i>
                     </a>

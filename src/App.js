@@ -17,6 +17,16 @@ import LogoME1 from "./_assets/LogoME1";
 import LogoME2 from "./_assets/LogoME2";
 import LogoME3 from "./_assets/LogoME3";
 
+const isLocal = Boolean(
+  window.location.hostname === "localhost" ||
+    // [::1] is the IPv6 localhost address.
+    window.location.hostname === "[::1]" ||
+    // 127.0.0.1/8 is considered localhost for IPv4.
+    window.location.hostname.match(
+      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
+    )
+);
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -51,8 +61,17 @@ class App extends Component {
         Object.keys(items).reduce((out, current) => {
           out[current] = items[current].completion;
           return out;
-        }, {}));
+        }, {})
+      );
     }
+
+    window.appInsights.trackEvent("toggleCompleteMission", {
+      game: game,
+      itemKey: key,
+      itemTitle: items[key].title.replace(/<\/?[^>]+(>|$)/g, ""),
+      itemStatus: toggled.done,
+      dev: isLocal
+    });
 
     set(items); // return the new items so caller can update state
   }
@@ -61,17 +80,59 @@ class App extends Component {
     if (typeof Storage !== "undefined") {
       if (typeof window.localStorage[game] === "string") {
         let data = JSON.parse(window.localStorage[game]);
-        set(
-          Object.keys(def).reduce((out, current) => {
-            out[current] = def[current];
-            // json stores date objects as strings, so have to convert back
-            out[current].completion = {
-              done: data[current] ? data[current].done : false,
-              datetime: data[current] ? new Date(data[current].datetime) : null
-            };
-            return out;
-          }, {})
+
+        let analyticsData = {
+          completedMissionsAtLoad: 0,
+          firstCompletedMissionAtLoad: null,
+          lastCompletedMissionAtLoad: null
+        };
+
+        let hydrated = Object.keys(def).reduce((out, current) => {
+          out[current] = def[current];
+          // json stores date objects as strings, so have to convert back
+          out[current].completion = {
+            done: data[current] ? data[current].done : false,
+            datetime: data[current] ? new Date(data[current].datetime) : null
+          };
+
+          if (out[current].completion.done) {
+            analyticsData.completedMissionsAtLoad++;
+
+            if (
+              out[current].completion.datetime <
+                analyticsData.firstCompletedMissionAtLoad ||
+              !analyticsData.firstCompletedMissionAtLoad
+            )
+              // this item is earlier than the earliest item, or the earliest item hasn't been set yet
+              analyticsData.firstCompletedMissionAtLoad =
+                out[current].completion.datetime;
+            if (
+              out[current].completion.datetime >
+                analyticsData.lastCompletedMissionAtLoad ||
+              !analyticsData.lastCompletedMissionAtLoad
+            )
+              // this item is later than the latest item, or the latest item hasn't been set yet
+              analyticsData.lastCompletedMissionAtLoad =
+                out[current].completion.datetime;
+          }
+
+          return out;
+        }, {});
+
+        window.appInsights.trackEvent(
+          "loadUserData",
+          {
+            game: game,
+            firstCompletedMissionAtLoad: analyticsData.firstCompletedMissionAtLoad,
+            lastCompletedMissionAtLoad: analyticsData.lastCompletedMissionAtLoad,
+            dev: isLocal
+          },
+          {
+            completedMissionsAtLoad: analyticsData.completedMissionsAtLoad
+          }
         );
+
+        set(hydrated);
       }
     }
   }
@@ -106,7 +167,9 @@ class App extends Component {
                 {this.state.showHelp && (
                   <div className="help">
                     <span>Select a game below to track</span>
-                    <Link to="/about" className="link float-right">About</Link>
+                    <Link to="/about" className="link float-right">
+                      About
+                    </Link>
                     <a className="close float-right" onClick={this.toggleHelp}>
                       &times;
                     </a>
