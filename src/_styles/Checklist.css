@@ -16,8 +16,8 @@
   position: relative;
 }
 
-.checklist .item:nth-child(even) .head {
-  background: #b3b3b3;
+.checklist .item:not(:last-of-type) .head {
+  border-bottom: 1px solid #b3b3b3;
 }
 
 .checklist .title p {

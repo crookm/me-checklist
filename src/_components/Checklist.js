@@ -44,6 +44,19 @@ class Checklist extends Component {
                 <div className="columns title">
                   <p>
                     <a dangerouslySetInnerHTML={{ __html: entry.title }} />
+                    <a
+                      href={entry.wiki}
+                      target="_BLANK"
+                      title="View on the Mass Effect Wiki"
+                      style={{
+                        color: "#d505ff",
+                        margin: "0 0 0 10px"
+                      }}
+                    >
+                      <i class="material-icons" style={{ fontSize: "15px" }}>
+                        launch
+                      </i>
+                    </a>
                   </p>
                 </div>
                 <div className="columns shrink">
