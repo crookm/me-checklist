@@ -13,19 +13,32 @@ class ME3 extends Component {
     this.state = {
       items: ME3List
     };
+
     this.toggleCompleted = this.toggleCompleted.bind(this);
   }
 
   componentDidMount() {
-    this.props.loadUserData(GAME, this.state.items, updated_items => {
-      this.setState({ items: updated_items });
-    });
+    this.props.downstreamHandlers.handleLoadUserData(
+      GAME,
+      this.state.items,
+      updated_items => {
+        this.setState({ items: updated_items });
+      }
+    );
+
+    this.props.downstreamHandlers.handleSetPageTitle("Mass Effect 3");
+    this.props.downstreamHandlers.handleTrackPageView();
   }
 
   toggleCompleted(key) {
-    this.props.handleToggle(GAME, key, this.state.items, new_items => {
-      this.setState({ items: new_items });
-    });
+    this.props.downstreamHandlers.handleToggle(
+      GAME,
+      key,
+      this.state.items,
+      new_items => {
+        this.setState({ items: new_items });
+      }
+    );
   }
 
   render() {
@@ -33,7 +46,11 @@ class ME3 extends Component {
       <div className="row align-center">
         <div className="columns medium-6">
           <LogoME3
-            style={{ width: "250px", margin: "50px auto 30px", display: "block" }}
+            style={{
+              width: "250px",
+              margin: "50px auto 30px",
+              display: "block"
+            }}
           />
           <Checklist items={this.state.items} onToggle={this.toggleCompleted} />
         </div>
