@@ -13,7 +13,10 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showHelp: true
+      showHelp: typeof this.props.downstreamHandlers.handleGetUI("showHelp") !==
+        "undefined"
+          ? this.props.downstreamHandlers.handleGetUI("showHelp")
+          : true
     };
 
     this.toggleHelp = this.toggleHelp.bind(this);
@@ -22,24 +25,8 @@ class Home extends Component {
   }
 
   toggleHelp() {
+    this.props.downstreamHandlers.handleSetUI("showHelp", !this.state.showHelp);
     this.setState(prevState => ({ showHelp: !prevState.showHelp }));
-
-    if (typeof Storage !== "undefined") {
-      let ui_settings = {};
-      if (typeof window.localStorage["ui_settings"] === "string") {
-        ui_settings = JSON.parse(window.localStorage["ui_settings"]);
-        ui_settings.showHelp = this.state.showHelp;
-      } else {
-        ui_settings = { showHelp: this.state.showHelp };
-      }
-
-      window.localStorage["ui_settings"] = JSON.stringify(ui_settings);
-    }
-
-    window.appInsights.trackEvent("toggleHelp", {
-      state: !this.state.showHelp, // opposite to make sense in the ai dash???
-      dev: this.props.isLocal
-    });
   }
 
   render() {

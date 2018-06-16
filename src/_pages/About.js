@@ -71,7 +71,7 @@ class About extends Component {
             </p>
             <br />
             <p>
-              <Link to="/">&laquo; return to game list</Link>
+              <Link to="/">&#x2190; return to game list</Link>
             </p>
           </div>
         </div>

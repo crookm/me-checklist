@@ -1,0 +1,20 @@
+.gcl {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.gcl.background {
+  position: absolute;
+  height: 270px;
+
+  z-index: 10;
+
+  background-position-y: 65% !important;
+}
+
+.gcl.content {
+  position: absolute;
+  z-index: 100;
+}

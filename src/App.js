@@ -7,13 +7,17 @@ import NotFound from "./_pages/_errors/NotFound";
 // pages
 import Home from "./_pages/Home";
 import About from "./_pages/About";
-import ME1 from "./_pages/ME1";
-import ME2 from "./_pages/ME2";
-import ME3 from "./_pages/ME3";
+import Game from "./_pages/Game";
 
 class App extends Component {
   constructor(props) {
     super(props);
+
+    this.migrateLSKeys({
+      one: 1,
+      two: 2,
+      three: 3
+    }); // migrate checklist localstorage to new key dtypes
 
     this.isLocal = Boolean(
       window.location.hostname === "localhost" ||
@@ -32,13 +36,17 @@ class App extends Component {
     this.handleSetPageTitle = this.handleSetPageTitle.bind(this);
     this.handleLoadUserData = this.handleLoadUserData.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+    this.handleGetUI = this.handleGetUI.bind(this);
+    this.handleSetUI = this.handleSetUI.bind(this);
 
     this.downstreamHandlers = {
       handleTrackOutboundLink: this.handleTrackOutboundLink,
       handleTrackPageView: this.handleTrackPageView,
       handleSetPageTitle: this.handleSetPageTitle,
       handleLoadUserData: this.handleLoadUserData,
-      handleToggle: this.handleToggle
+      handleToggle: this.handleToggle,
+      handleGetUI: this.handleGetUI,
+      handleSetUI: this.handleSetUI
     };
   }
 
@@ -50,6 +58,24 @@ class App extends Component {
         }
       }
     }
+  }
+
+  migrateLSKeys(conv) {
+    // migrate keys in local browser storage
+    Object.entries(conv).forEach(([oldKey, newKey]) => {
+      if (typeof Storage !== "undefined") {
+        if (typeof window.localStorage[oldKey] === "string") {
+          window.localStorage[newKey] = window.localStorage[oldKey];
+          delete window.localStorage[oldKey];
+
+          window.appInsights.trackEvent("migrateLocalStorageKey", {
+            oldKey: oldKey,
+            newKey: newKey,
+            dev: this.props.isLocal
+          });
+        }
+      }
+    });
   }
 
   // functions for downstream pages
@@ -65,7 +91,7 @@ class App extends Component {
       {
         secsToClickFromPageReady:
           new Date(new Date() - this.pageViewTimerStart).getTime() / 1000,
-          ...aiMetrics
+        ...aiMetrics
       }
     );
   }
@@ -172,6 +198,35 @@ class App extends Component {
     set(items); // return the new items so caller can update state
   }
 
+  handleGetUI(key) {
+    if (typeof Storage !== "undefined") {
+      if (typeof window.localStorage["ui_settings"] === "string") {
+        return JSON.parse(window.localStorage["ui_settings"])[key];
+      } else {
+        return undefined;
+      }
+    }
+  }
+
+  handleSetUI(key, value) {
+    if (typeof Storage !== "undefined") {
+      let ui_settings = {};
+
+      if (typeof window.localStorage["ui_settings"] === "string") {
+        ui_settings = JSON.parse(window.localStorage["ui_settings"]);
+      }
+
+      ui_settings[key] = value;
+      window.localStorage["ui_settings"] = JSON.stringify(ui_settings);
+
+      window.appInsights.trackEvent("toggleUISetting", {
+        setting: key,
+        value: value,
+        dev: this.isLocal
+      });
+    }
+  }
+
   render() {
     return (
       <Router>
@@ -200,8 +255,9 @@ class App extends Component {
           <Route
             path="/one"
             render={props => (
-              <ME1
+              <Game
                 {...props}
+                game={1}
                 isLocal={this.isLocal}
                 downstreamHandlers={this.downstreamHandlers}
               />
@@ -210,8 +266,9 @@ class App extends Component {
           <Route
             path="/two"
             render={props => (
-              <ME2
+              <Game
                 {...props}
+                game={2}
                 isLocal={this.isLocal}
                 downstreamHandlers={this.downstreamHandlers}
               />
@@ -220,8 +277,9 @@ class App extends Component {
           <Route
             path="/three"
             render={props => (
-              <ME3
+              <Game
                 {...props}
+                game={3}
                 isLocal={this.isLocal}
                 downstreamHandlers={this.downstreamHandlers}
               />
