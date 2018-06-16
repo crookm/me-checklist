@@ -44,11 +44,30 @@ class About extends Component {
             <p>
               If you would like to contribute to this website, however, you can
               check out the{" "}
-              <a href="https://github.com/crookm/me-checklist">repository</a>.
-              If you'd like to visit me on{" "}
-              <a href="https://www.crookm.com/">my blog</a>, or follow me on{" "}
-              <a href="https://twitter.com/mattlc_3">Twitter</a>, I'd
-              appreaciate it.
+              <a
+                href="https://github.com/crookm/me-checklist"
+                onClick={e =>
+                  this.props.downstreamHandlers.handleTrackOutboundLink(e)
+                }
+              >
+                repository
+              </a>. If you'd like to visit me on{" "}
+              <a
+                href="https://www.crookm.com/"
+                onClick={e =>
+                  this.props.downstreamHandlers.handleTrackOutboundLink(e)
+                }
+              >
+                my blog
+              </a>, or follow me on{" "}
+              <a
+                href="https://twitter.com/mattlc_3"
+                onClick={e =>
+                  this.props.downstreamHandlers.handleTrackOutboundLink(e)
+                }
+              >
+                Twitter
+              </a>, I'd appreaciate it.
             </p>
             <br />
             <p>

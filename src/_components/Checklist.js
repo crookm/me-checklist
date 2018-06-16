@@ -44,19 +44,36 @@ class Checklist extends Component {
                 <div className="columns title">
                   <p>
                     <a dangerouslySetInnerHTML={{ __html: entry.title }} />
-                    <a
-                      href={entry.wiki}
-                      target="_BLANK"
-                      title="View on the Mass Effect Wiki"
-                      style={{
-                        color: "#d505ff",
-                        margin: "0 0 0 10px"
-                      }}
-                    >
-                      <i className="material-icons" style={{ fontSize: "15px" }}>
+
+                    <i className="material-icons" style={{ fontSize: "15px" }}>
+                      <a
+                        href={entry.wiki}
+                        target="_BLANK"
+                        title="View on the Mass Effect Wiki"
+                        style={{
+                          color: "#d505ff",
+                          margin: "0 0 0 10px"
+                        }}
+                        onClick={e => {
+                          this.props.downstreamHandlers.handleTrackOutboundLink(
+                            e,
+                            {
+                              game: this.props.game,
+                              linkSpecPurpose: "out to wikia",
+                              linkVisualReferrer: `checklist item: ${entry.title.replace(
+                                /<\/?[^>]+(>|$)/g,
+                                ""
+                              )}`,
+                              linkVisualOrder: key
+                            }
+                          );
+
+                          e.stopPropagation();
+                        }}
+                      >
                         launch
-                      </i>
-                    </a>
+                      </a>
+                    </i>
                   </p>
                 </div>
                 <div className="columns shrink">

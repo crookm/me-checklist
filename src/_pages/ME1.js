@@ -52,7 +52,12 @@ class ME1 extends Component {
               display: "block"
             }}
           />
-          <Checklist items={this.state.items} onToggle={this.toggleCompleted} />
+          <Checklist
+            game={GAME}
+            items={this.state.items}
+            onToggle={this.toggleCompleted}
+            downstreamHandlers={this.props.downstreamHandlers}
+          />
         </div>
       </div>
     );

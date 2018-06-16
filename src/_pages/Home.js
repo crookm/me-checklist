@@ -16,6 +16,8 @@ class Home extends Component {
       showHelp: true
     };
 
+    this.toggleHelp = this.toggleHelp.bind(this);
+
     this.props.downstreamHandlers.handleSetPageTitle("Game selector");
   }
 
@@ -32,12 +34,12 @@ class Home extends Component {
       }
 
       window.localStorage["ui_settings"] = JSON.stringify(ui_settings);
-
-      window.appInsights.trackEvent("toggleHelp", {
-        state: ui_settings.showHelp,
-        dev: this.props.isLocal
-      });
     }
+
+    window.appInsights.trackEvent("toggleHelp", {
+      state: !this.state.showHelp, // opposite to make sense in the ai dash???
+      dev: this.props.isLocal
+    });
   }
 
   render() {

@@ -25,12 +25,16 @@ class App extends Component {
         )
     );
 
+    this.pageViewTimerStart = new Date();
+
+    this.handleTrackOutboundLink = this.handleTrackOutboundLink.bind(this);
     this.handleTrackPageView = this.handleTrackPageView.bind(this);
     this.handleSetPageTitle = this.handleSetPageTitle.bind(this);
     this.handleLoadUserData = this.handleLoadUserData.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
 
     this.downstreamHandlers = {
+      handleTrackOutboundLink: this.handleTrackOutboundLink,
       handleTrackPageView: this.handleTrackPageView,
       handleSetPageTitle: this.handleSetPageTitle,
       handleLoadUserData: this.handleLoadUserData,
@@ -49,7 +53,25 @@ class App extends Component {
   }
 
   // functions for downstream pages
+  handleTrackOutboundLink(e, aiProperties, aiMetrics) {
+    window.appInsights.trackEvent(
+      "linkedOutbound",
+      {
+        dev: this.isLocal,
+        href: e.target.href,
+        target: e.target.target,
+        ...aiProperties
+      },
+      {
+        secsToClickFromPageReady:
+          new Date(new Date() - this.pageViewTimerStart).getTime() / 1000,
+          ...aiMetrics
+      }
+    );
+  }
+
   handleTrackPageView() {
+    this.pageViewTimerStart = new Date();
     window.appInsights.trackPageView(undefined, undefined, {
       dev: this.props.isLocal
     });
