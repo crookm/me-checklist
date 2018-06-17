@@ -82,9 +82,6 @@ class Game extends Component {
         </div>
         <div className="row align-center gcl content">
           <div className="columns large-6">
-            {/* <LogoME3
-              style={}
-            /> */}
             {React.createElement(this.state.logo, {
               style: {
                 width: "250px",
