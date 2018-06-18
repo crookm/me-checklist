@@ -65,7 +65,7 @@ class Checklist extends Component {
                   .slideDown("fast")
               }
             >
-              <i class="material-icons">expand_more</i>
+              <i className="material-icons">expand_more</i>
             </button>
             <button
               className="button small"
