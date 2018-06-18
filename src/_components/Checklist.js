@@ -72,7 +72,7 @@ class Checklist extends Component {
               title="Collapse all"
               onClick={e => window.$(".info").slideUp("fast")}
             >
-              <i class="material-icons">expand_less</i>
+              <i className="material-icons">expand_less</i>
             </button>
           </div>
           <div className="columns shrink">
