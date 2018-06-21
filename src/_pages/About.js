@@ -32,12 +32,12 @@ class About extends Component {
             <p>
               The checklist items I have curated for each game are selected to
               reveal the most lore, lead to a perfect ending for each game, and
-              set you up for the next game as best as possible.
+              set you up for the next game.
             </p>
             <p>
-              Note that this website was created well after Andromeda has
-              released, but I'm not confident I know how the game works as well
-              as the trilogy, so I won't be adding it to this list any time
+              Note that this website was created well after Andromeda was
+              released, but I'm not confident I know how the game works so I
+              won't be adding it to this list any time
               soon. I'm not even sure the game isn't linear.
             </p>
             <br />
