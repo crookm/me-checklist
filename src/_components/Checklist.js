@@ -57,20 +57,30 @@ class Checklist extends Component {
             <button
               className="button small"
               title="Expand all"
-              onClick={e =>
+              onClick={e => {
                 window
                   .$(
                     this.state.showSupplementary ? ".info" : ".info:not(.hint)"
                   )
                   .slideDown("fast")
-              }
+                  .parent()
+                  .addClass("active");
+                window.$(".carat").removeClass("down");
+              }}
             >
               <i className="material-icons">expand_more</i>
             </button>
             <button
               className="button small"
               title="Collapse all"
-              onClick={e => window.$(".info").slideUp("fast")}
+              onClick={e => {
+                window
+                  .$(".info")
+                  .slideUp("fast")
+                  .parent()
+                  .removeClass("active");
+                window.$(".carat").addClass("down");
+              }}
             >
               <i className="material-icons">expand_less</i>
             </button>
@@ -79,7 +89,6 @@ class Checklist extends Component {
             <button
               className="dropdown button small"
               data-toggle="checklistSettings"
-              // onClick={e => window.$('#checklistSettings').foundation('toggle')}
             >
               <i className="material-icons">settings</i>
             </button>
@@ -219,7 +228,7 @@ class Checklist extends Component {
                 </div>
                 <div className="columns shrink">
                   <a>
-                    <div className="carat down up" />
+                    <div className="carat up down" />
                   </a>
                 </div>
               </div>
