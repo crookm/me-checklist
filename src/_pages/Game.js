@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+import Timeline from "../_components/Timeline";
 import Checklist from "../_components/Checklist";
 
 import LogoME1 from "../_assets/LogoME1";
@@ -44,6 +45,16 @@ class Game extends Component {
         break;
     }
 
+    this.tlItems = Object.entries(this.state.items).reduce(
+      (accumulator, [currentKey, currentItem]) => {
+        if (/<[a-z][\s\S]*>/i.test(currentItem.title)) {
+          accumulator.push(currentItem.title.match(/<[a-z][\s\S]*>/i)[0]);
+        }
+        return accumulator;
+      },
+      []
+    );
+
     this.toggleCompleted = this.toggleCompleted.bind(this);
   }
 
@@ -81,7 +92,7 @@ class Game extends Component {
           {" "}
         </div>
         <div className="row align-center gcl content">
-          <div className="columns large-6">
+          <div className="columns large-7">
             {React.createElement(this.state.logo, {
               style: {
                 width: "250px",
@@ -89,12 +100,19 @@ class Game extends Component {
                 display: "block"
               }
             })}
-            <Checklist
-              game={this.props.game}
-              items={this.state.items}
-              onToggle={this.toggleCompleted}
-              downstreamHandlers={this.props.downstreamHandlers}
-            />
+            <div className="row">
+              <div className="columns shrink show-for-large">
+                <Timeline items={this.tlItems} />
+              </div>
+              <div className="columns">
+                <Checklist
+                  game={this.props.game}
+                  items={this.state.items}
+                  onToggle={this.toggleCompleted}
+                  downstreamHandlers={this.props.downstreamHandlers}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

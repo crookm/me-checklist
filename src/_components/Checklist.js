@@ -150,7 +150,14 @@ class Checklist extends Component {
         {Object.entries(this.props.items).map(([key, entry]) => (
           <div key={key} className={`item i-${key}`}>
             {entry["wiki"] ? (
-              <div className="row head" onClick={e => this.toggleCarat(key, e)}>
+              <div
+                className={
+                  /<[a-z][\s\S]*>/i.test(entry.title)
+                    ? "row head milestone"
+                    : "row head"
+                }
+                onClick={e => this.toggleCarat(key, e)}
+              >
                 <div className="columns shrink">
                   <label
                     className="checktainer"
