@@ -38,8 +38,8 @@ class Timeline extends Component {
         })
         .trigger("scroll");
 
-      items.find("span").click(function() {
-        let li = window.$(this).parent();
+      items.click(function() {
+        let li = window.$(this);
         let index = li.index();
         let milestone = milestones.eq(index);
 
