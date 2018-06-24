@@ -92,7 +92,7 @@ class Game extends Component {
           {" "}
         </div>
         <div className="row align-center gcl content">
-          <div className="columns large-7">
+          <div className="columns medium-7 small-12">
             {React.createElement(this.state.logo, {
               style: {
                 width: "250px",
@@ -101,7 +101,7 @@ class Game extends Component {
               }
             })}
             <div className="row">
-              <div className="columns shrink show-for-large">
+              <div className="columns shrink show-for-medium">
                 <Timeline items={this.tlItems} />
               </div>
               <div className="columns">
