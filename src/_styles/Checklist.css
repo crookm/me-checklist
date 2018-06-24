@@ -22,11 +22,11 @@
 
   background: #5f5f5f;
   border: 1px solid #444242;
-  
+
   padding: 11px;
   margin-bottom: 10px;
 
-  transition: all .4s;
+  transition: all 0.4s;
 }
 
 .checklist .listmenu .button {
@@ -34,18 +34,38 @@
 }
 
 .checklist .listmenu .button.small i {
-  font-size: .75rem;
+  font-size: 0.75rem;
 }
 
 .checklist .listmenu p {
   margin: 5px 0;
 }
 
+.checklist .item .hero {
+  margin: 50px 0;
+  color: #f0f0f0;
+}
+
+.checklist .item .hero .columns div {
+  padding: 50px 0;
+  background-size: cover !important;
+  background-position: center center !important;
+
+  text-align: center;
+
+  transition: all 0.4s;
+}
+
+.checklist .item .hero .columns div:hover,
+.checklist .item .hero .columns div:focus {
+  transform: scale(0.94);
+}
+
 .checklist .item .head {
   background: #dadada;
   padding: 10px;
 
-  transition: all .4s ease-in-out;
+  transition: all 0.4s ease-in-out;
 }
 
 .checklist .item .head.overhere {
@@ -146,21 +166,17 @@
       endColorstr="#ff3019",
       GradientType=1
     );
-
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-
 .checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
-
 .checktainer input:checked ~ .checkmark:after {
   display: block;
 }
-
 .checktainer .checkmark:after {
   left: 10px;
   top: 7px;
@@ -172,27 +188,21 @@
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-
 .carat {
   margin: 17px 0 0 0;
   width: 0;
   height: 0;
-
   transition: all 0.4s;
 }
-
 .carat.down {
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-
   border-top: 10px solid #343434 !important;
   border-bottom: none !important;
 }
-
 .carat.up {
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-
   border-bottom: 10px solid #343434;
   border-top: none;
 }

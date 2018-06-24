@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 import "../_styles/Checklist.css";
+import HeroPrevNext from "./HeroPrevNext";
 
 class Checklist extends Component {
   constructor(props) {
@@ -309,6 +310,13 @@ class Checklist extends Component {
               </div>
             </div>
           ))}
+
+          <div className="item">
+            <HeroPrevNext
+              game={this.props.game}
+              gameMeta={this.props.gameMeta}
+            />
+          </div>
         </div>
         <p style={{ margin: "1rem 0" }}>
           <Link to="/">&#x2190; return to game list</Link>
