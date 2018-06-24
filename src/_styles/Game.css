@@ -18,3 +18,13 @@
   position: absolute;
   z-index: 100;
 }
+
+.button,
+.button:active,
+.button:focus {
+  background: #d505ff;
+}
+
+.button:hover {
+  background: #fc05cf;
+}
