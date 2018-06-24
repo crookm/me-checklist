@@ -17,33 +17,37 @@ class Game extends Component {
   constructor(props) {
     super(props);
 
-    switch (this.props.game) {
-      case 1:
-        this.state = {
-          items: ME1List,
-          logo: LogoME1,
-          title: "Mass Effect 1",
-          bgimg: "/assets/img/game-bg-1.jpg"
-        };
-        break;
-      case 2:
-        this.state = {
-          items: ME2List,
-          logo: LogoME2,
-          title: "Mass Effect 2",
-          bgimg: "/assets/img/game-bg-2.jpg"
-        };
-        break;
-      case 3:
-      default:
-        this.state = {
-          items: ME3List,
-          logo: LogoME3,
-          title: "Mass Effect 3",
-          bgimg: "/assets/img/game-bg-3.jpg"
-        };
-        break;
-    }
+    this.gameMeta = {
+      1: {
+        items: ME1List,
+        logo: LogoME1,
+        link: "/one",
+        title: "Mass Effect 1",
+        bgimg: "/assets/img/game-bg-1.jpg",
+        prev: null,
+        next: 2
+      },
+      2: {
+        items: ME2List,
+        logo: LogoME2,
+        link: "/two",
+        title: "Mass Effect 2",
+        bgimg: "/assets/img/game-bg-2.jpg",
+        prev: 1,
+        next: 3
+      },
+      3: {
+        items: ME3List,
+        logo: LogoME3,
+        link: "/three",
+        title: "Mass Effect 3",
+        bgimg: "/assets/img/game-bg-3.jpg",
+        prev: 2,
+        next: null
+      }
+    };
+
+    this.state = this.gameMeta[this.props.game];
 
     this.tlItems = Object.entries(this.state.items).reduce(
       (accumulator, [currentKey, currentItem]) => {
@@ -107,6 +111,7 @@ class Game extends Component {
               <div className="columns">
                 <Checklist
                   game={this.props.game}
+                  gameMeta={this.gameMeta}
                   items={this.state.items}
                   onToggle={this.toggleCompleted}
                   downstreamHandlers={this.props.downstreamHandlers}
