@@ -219,7 +219,7 @@ export default {
   },
   27: {
     title: `HINT: Complete Rogue VI ASAP`,
-    desc: `The UNC: Rogue VI mission is made available to you when you are level 20. Do it as soon as you get it, as completing this mission allows you to specialise - getting more skils and perks. This mission is quite difficult.`,
+    desc: `The UNC: Rogue VI mission is made available to you when you are level 20. Do it as soon as you get it, as completing this mission allows you to specialise - getting more skills and perks. This mission is quite difficult.`,
     timeline: {
       before: `Chapter 7: Ilos - Find the Conduit`,
       after: `Chapter 2: Finding Liara`
