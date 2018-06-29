@@ -1,0 +1,43 @@
+.loading-overlay {
+  position: fixed;
+
+  width: 40px;
+  height: 40px;
+
+  bottom: 10px;
+  right: 10px;
+
+  border-radius: 50%;
+
+  background: #d505ff;
+  background: -moz-linear-gradient(
+    -45deg,
+    #d505ff 9%,
+    #fc05cf 49%,
+    #ff3019 100%
+  );
+  background: -webkit-linear-gradient(
+    -45deg,
+    #d505ff 9%,
+    #fc05cf 49%,
+    #ff3019 100%
+  );
+  background: linear-gradient(135deg, #d505ff 9%, #fc05cf 49%, #ff3019 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(
+      startColorstr="#d505ff",
+      endColorstr="#ff3019",
+      GradientType=1
+    );
+
+  -webkit-box-shadow: 0 0 15px 2px rgba(30, 30, 30, 0.4);
+  box-shadow: 0 0 15px 2px rgba(30, 30, 30, 0.4);
+}
+
+.loading-overlay .loader {
+  width: 30px;
+  height: 30px;
+
+  margin: 5px;
+
+  fill: #fff;
+}

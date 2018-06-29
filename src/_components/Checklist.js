@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-import "../_styles/Checklist.css";
 import HeroPrevNext from "./HeroPrevNext";
+
+import "../_styles/Checklist.css";
 
 class Checklist extends Component {
   constructor(props) {
