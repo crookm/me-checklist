@@ -11,11 +11,15 @@ import ME1List from "../_assets/ME1List";
 import ME2List from "../_assets/ME2List";
 import ME3List from "../_assets/ME3List";
 
+import APIAccess from "../_utilities/APIAccess";
+
 import "../_styles/Game.css";
 
 class Game extends Component {
   constructor(props) {
     super(props);
+
+    this.api = new APIAccess(this.props.game);
 
     this.gameMeta = {
       1: {
@@ -48,6 +52,12 @@ class Game extends Component {
     };
 
     this.state = this.gameMeta[this.props.game];
+    this.state["syncActive"] = false;
+    this.state["syncLast"] =
+      typeof this.props.downstreamHandlers.handleGetUI("syncLast") !==
+      "undefined"
+        ? new Date(this.props.downstreamHandlers.handleGetUI("syncLast"))
+        : "never";
 
     this.tlItems = Object.entries(this.state.items).reduce(
       (accumulator, [currentKey, currentItem]) => {
@@ -95,6 +105,33 @@ class Game extends Component {
       this.state.items,
       new_items => {
         this.setState({ items: new_items });
+        if (
+          this.props.downstreamHandlers.handleGetUI("syncAutoToggle") &&
+          this.props.downstreamHandlers.handleGetUI("syncLink")
+        ) {
+          this.setState({ syncActive: true });
+          this.api.writeMerge(
+            this.props.downstreamHandlers.handleGetUI("syncLink"),
+            window.localStorage[this.props.game],
+            data => {
+              // success from http
+              this.props.downstreamHandlers.handleSyncResponse(
+                data,
+                this.props.items
+              );
+
+              this.setState({ syncActive: false, syncLast: new Date() });
+              this.props.downstreamHandlers.handleSetUI("syncLast", new Date());
+            },
+            err => {
+              // error from http
+              console.error("Failed to sync checkdata:");
+              console.error(err);
+
+              this.setState({ syncActive: false });
+            }
+          );
+        }
       }
     );
   }
@@ -142,11 +179,14 @@ class Game extends Component {
               </div>
               <div className="columns">
                 <Checklist
+                  api={this.api}
                   game={this.props.game}
                   gameMeta={this.gameMeta}
                   items={this.state.items}
                   onToggle={this.toggleCompleted}
                   downstreamHandlers={this.downstreamHandlers}
+                  syncActive={this.state.syncActive}
+                  syncLast={this.state.syncLast}
                 />
               </div>
             </div>

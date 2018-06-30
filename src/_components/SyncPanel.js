@@ -1,14 +1,12 @@
 import React, { Component } from "react";
+
 import LoadingOverlay from "./LoadingOverlay";
 
 class SyncPanel extends Component {
   constructor(props) {
     super(props);
 
-    this.apiBase = "https://me-checklist-api.azurewebsites.net/api";
-    this.apiCodes = {
-      writeMerge: "0HCZD/leGgCc6kXNwljTgKAJqLvRdaZXSFaSk13FBDCEC0NaskNY8g=="
-    };
+    this.api = this.props.api;
 
     this.state = {
       syncLink:
@@ -21,6 +19,11 @@ class SyncPanel extends Component {
         "undefined"
           ? this.props.downstreamHandlers.handleGetUI("syncAuto")
           : true,
+      syncAutoToggle:
+        typeof this.props.downstreamHandlers.handleGetUI("syncAutoToggle") !==
+        "undefined"
+          ? this.props.downstreamHandlers.handleGetUI("syncAutoToggle")
+          : true,
       syncLast:
         typeof this.props.downstreamHandlers.handleGetUI("syncLast") !==
         "undefined"
@@ -29,8 +32,19 @@ class SyncPanel extends Component {
       syncActive: false
     };
 
+    setInterval(() => {
+      if (this.state.syncAuto && this.state.syncLink) this.doSync();
+    }, 1000 * 60 * 1);
+
     this.setLink = this.setLink.bind(this);
     this.doSync = this.doSync.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      syncActive: nextProps.syncActive,
+      syncLast: nextProps.syncLast
+    });
   }
 
   timeSince(date) {
@@ -69,40 +83,43 @@ class SyncPanel extends Component {
         this.refs["sync-passphrase_input-error"].innerHTML =
           "Passphrases must be > 10 characters. We recommend a short sentence of a few random words.";
       } else {
-        this.setState({ syncLink: input }, this.doSync);
+        this.setState({ syncLink: input }, () => this.doSync(true));
         this.props.downstreamHandlers.handleSetUI("syncLink", input);
         this.refs["sync-passphrase_input-error"].innerHTML = "";
       }
     }
   }
 
-  doSync() {
+  doSync(bypassDebounce) {
     if (typeof Storage !== "undefined") {
       this.setState({ syncActive: true });
 
-      window.$.ajax({
-        url: `${this.apiBase}/write/merge/${this.props.game}/${
-          this.state.syncLink
-        }?code=${this.apiCodes["writeMerge"]}`,
-        type: "POST",
-        contentType: "application/json",
+      let endpoint = bypassDebounce
+        ? this.api._writeMerge
+        : this.api.writeMerge;
 
-        data: window.localStorage[this.props.game] || "{}",
-        dataType: "json",
-
-        success: data => {
-          this.props.downstreamHandlers.handleSyncResponse(data, this.props.items);
+      // bypass the debounce this time
+      endpoint(
+        this.state.syncLink,
+        window.localStorage[this.props.game],
+        data => {
+          // success from http
+          this.props.downstreamHandlers.handleSyncResponse(
+            data,
+            this.props.items
+          );
 
           this.setState({ syncActive: false, syncLast: new Date() });
           this.props.downstreamHandlers.handleSetUI("syncLast", new Date());
         },
-        error: err => {
+        err => {
+          // error from http
           console.error("Failed to sync checkdata:");
           console.error(err);
 
           this.setState({ syncActive: false });
         }
-      });
+      );
     }
   }
 
@@ -113,7 +130,7 @@ class SyncPanel extends Component {
           Sync{" "}
           <span
             data-tooltip
-            title="Sync your checklist to the cloud! Your current data will be merged with what we have stored using this password."
+            title="Sync your checklist to the cloud! Your current progress will be merged with what we have stored using this passphrase."
           >
             <i className="material-icons" style={{ fontSize: "1rem" }}>
               help
@@ -147,11 +164,31 @@ class SyncPanel extends Component {
                   }));
                 }}
               />
-              Auto-sync
+              Auto-sync in background
+            </label>
+            <label style={{ marginBottom: "10px" }}>
+              <input
+                type="checkbox"
+                checked={this.state.syncAutoToggle}
+                onChange={e => {
+                  this.props.downstreamHandlers.handleSetUI(
+                    "syncAutoToggle",
+                    !this.state.syncAutoToggle
+                  );
+
+                  this.setState(prevState => ({
+                    syncAutoToggle: !prevState.syncAutoToggle
+                  }));
+                }}
+              />
+              Auto-sync on toggle item
             </label>
 
             <div className="button-group small">
-              <button className="button small" onClick={e => this.doSync()}>
+              <button
+                className="button small"
+                onClick={e => this.doSync(false)}
+              >
                 Sync now
               </button>
               <button

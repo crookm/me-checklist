@@ -174,10 +174,13 @@ class Checklist extends Component {
 
         <div id="list-belowmenubar">
           <ControlPanel
+            api={this.props.api}
             game={this.props.game}
             items={this.props.items}
             syncAvailable
             downstreamHandlers={this.props.downstreamHandlers}
+            syncActive={this.props.syncActive}
+            syncLast={this.props.syncLast}
           />
 
           <div id="list-actual">

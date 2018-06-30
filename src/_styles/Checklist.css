@@ -14,7 +14,7 @@
   width: 200px;
 }
 
-.dropdown-pane input[type="checkbox"] {
+.checklist input[type="checkbox"] {
   margin: 0 10px 0 0;
 }
 
@@ -38,7 +38,7 @@
   transition: all 0.4s;
 }
 
-.checklist .datapanel label {
+.checklist #list-belowmenubar .datapanel label {
   color: #fff;
 }
 
