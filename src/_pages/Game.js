@@ -104,7 +104,12 @@ class Game extends Component {
       key,
       this.state.items,
       new_items => {
-        this.setState({ items: new_items });
+        this.setState({
+          items: new_items,
+          syncLast: new Date(
+            this.props.downstreamHandlers.handleGetUI("syncLast")
+          )
+        });
         if (
           this.props.downstreamHandlers.handleGetUI("syncAutoToggle") &&
           this.props.downstreamHandlers.handleGetUI("syncLink")
@@ -141,10 +146,12 @@ class Game extends Component {
       window.localStorage[this.props.game] = JSON.stringify(data);
       let hydrated = Object.keys(this.state.items).reduce((out, current) => {
         out[current] = this.state.items[current];
-        out[current].completion = {
-          done: data[current] ? data[current].done : false,
-          datetime: data[current] ? new Date(data[current].datetime) : null
-        };
+        if (data[current].datetime !== null) {
+          out[current].completion = {
+            done: data[current] ? data[current].done : false,
+            datetime: data[current] ? new Date(data[current].datetime) : null
+          };
+        }
 
         return out;
       }, {});
