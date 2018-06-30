@@ -1,8 +1,14 @@
 import React, { Component } from "react";
+import LoadingOverlay from "./LoadingOverlay";
 
 class SyncPanel extends Component {
   constructor(props) {
     super(props);
+
+    this.apiBase = "https://me-checklist-api.azurewebsites.net/api";
+    this.apiCodes = {
+      writeMerge: "0HCZD/leGgCc6kXNwljTgKAJqLvRdaZXSFaSk13FBDCEC0NaskNY8g=="
+    };
 
     this.state = {
       syncLink:
@@ -19,10 +25,39 @@ class SyncPanel extends Component {
         typeof this.props.downstreamHandlers.handleGetUI("syncLast") !==
         "undefined"
           ? new Date(this.props.downstreamHandlers.handleGetUI("syncLast"))
-          : "never"
+          : "never",
+      syncActive: false
     };
 
     this.setLink = this.setLink.bind(this);
+    this.doSync = this.doSync.bind(this);
+  }
+
+  timeSince(date) {
+    var seconds = Math.floor((new Date() - date) / 1000);
+
+    var interval = Math.floor(seconds / 31536000);
+
+    if (interval > 1) {
+      return interval + " years";
+    }
+    interval = Math.floor(seconds / 2592000);
+    if (interval > 1) {
+      return interval + " months";
+    }
+    interval = Math.floor(seconds / 86400);
+    if (interval > 1) {
+      return interval + " days";
+    }
+    interval = Math.floor(seconds / 3600);
+    if (interval > 1) {
+      return interval + " hours";
+    }
+    interval = Math.floor(seconds / 60);
+    if (interval > 1) {
+      return interval + " minutes";
+    }
+    return Math.floor(seconds) + " seconds";
   }
 
   setLink(input) {
@@ -34,7 +69,7 @@ class SyncPanel extends Component {
         this.refs["sync-passphrase_input-error"].innerHTML =
           "Passphrases must be > 10 characters. We recommend a short sentence of a few random words.";
       } else {
-        this.setState({ syncLink: input });
+        this.setState({ syncLink: input }, this.doSync);
         this.props.downstreamHandlers.handleSetUI("syncLink", input);
         this.refs["sync-passphrase_input-error"].innerHTML = "";
       }
@@ -42,7 +77,33 @@ class SyncPanel extends Component {
   }
 
   doSync() {
-    //
+    if (typeof Storage !== "undefined") {
+      this.setState({ syncActive: true });
+
+      window.$.ajax({
+        url: `${this.apiBase}/write/merge/${this.props.game}/${
+          this.state.syncLink
+        }?code=${this.apiCodes["writeMerge"]}`,
+        type: "POST",
+        contentType: "application/json",
+
+        data: window.localStorage[this.props.game] || "{}",
+        dataType: "json",
+
+        success: data => {
+          this.props.downstreamHandlers.handleSyncResponse(data, this.props.items);
+
+          this.setState({ syncActive: false, syncLast: new Date() });
+          this.props.downstreamHandlers.handleSetUI("syncLast", new Date());
+        },
+        error: err => {
+          console.error("Failed to sync checkdata:");
+          console.error(err);
+
+          this.setState({ syncActive: false });
+        }
+      });
+    }
   }
 
   render() {
@@ -62,9 +123,14 @@ class SyncPanel extends Component {
         {this.state.syncLink ? (
           <div>
             <p>
-              <b>Sync phrase</b>: ******{this.state.syncLink.slice(-4)}
+              <b>Sync passphrase</b>: ****{this.state.syncLink.slice(-4)}
               <br />
-              <b>Last sync</b>: {this.state.syncLast}
+              <b>Last sync</b>:{" "}
+              {typeof this.state.syncLast === "string"
+                ? this.state.syncLast
+                : this.timeSince(this.state.syncLast) === "0 seconds"
+                  ? "just now"
+                  : `${this.timeSince(this.state.syncLast)} ago`}
             </p>
             <label>
               <input
@@ -85,7 +151,9 @@ class SyncPanel extends Component {
             </label>
 
             <div className="button-group small">
-              <button className="button small">Sync now</button>
+              <button className="button small" onClick={e => this.doSync()}>
+                Sync now
+              </button>
               <button
                 className="button small secondary"
                 onClick={e => this.setLink(null)}
@@ -93,6 +161,8 @@ class SyncPanel extends Component {
                 Unlink
               </button>
             </div>
+
+            {this.state.syncActive && <LoadingOverlay />}
           </div>
         ) : (
           <div>

@@ -8,10 +8,10 @@ class GameDataPanel extends Component {
     return (
       <div className="row datapanel">
         {this.props.syncAvailable && (
-          <SyncPanel downstreamHandlers={this.props.downstreamHandlers} />
+          <SyncPanel game={this.props.game} items={this.props.items} downstreamHandlers={this.props.downstreamHandlers} />
         )}
         {this.props.analyserAvailable && (
-          <AnalyserPanel downstreamHandlers={this.props.downstreamHandlers} />
+          <AnalyserPanel game={this.props.game} downstreamHandlers={this.props.downstreamHandlers} />
         )}
       </div>
     );

@@ -173,6 +173,8 @@ class Checklist extends Component {
         </div>
 
         <ControlPanel
+          game={this.props.game}
+          items={this.props.items}
           syncAvailable
           downstreamHandlers={this.props.downstreamHandlers}
         />

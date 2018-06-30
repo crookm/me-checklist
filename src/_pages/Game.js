@@ -60,6 +60,10 @@ class Game extends Component {
     );
 
     this.toggleCompleted = this.toggleCompleted.bind(this);
+    this.handleSyncResponse = this.handleSyncResponse.bind(this);
+
+    this.downstreamHandlers = this.props.downstreamHandlers;
+    this.downstreamHandlers["handleSyncResponse"] = this.handleSyncResponse;
   }
 
   componentDidMount() {
@@ -70,6 +74,15 @@ class Game extends Component {
         this.setState({ items: updated_items });
       }
     );
+
+    let items = {};
+    if (typeof window.localStorage[this.props.game] === "undefined") {
+      for (var key in this.state.items) {
+        items[key] = this.state.items[key].completion;
+      }
+
+      window.localStorage[this.props.game] = JSON.stringify(items);
+    }
 
     this.props.downstreamHandlers.handleSetPageTitle(this.state.title);
     this.props.downstreamHandlers.handleTrackPageView();
@@ -84,6 +97,25 @@ class Game extends Component {
         this.setState({ items: new_items });
       }
     );
+  }
+
+  handleSyncResponse(data) {
+    if (Object.keys(data).length > 0) {
+      window.localStorage[this.props.game] = JSON.stringify(data);
+      let hydrated = Object.keys(this.state.items).reduce((out, current) => {
+        out[current] = this.state.items[current];
+        out[current].completion = {
+          done: data[current] ? data[current].done : false,
+          datetime: data[current] ? new Date(data[current].datetime) : null
+        };
+
+        return out;
+      }, {});
+
+      this.setState({ items: hydrated });
+    } else {
+      console.log("Sync response was empty");
+    }
   }
 
   render() {
@@ -114,7 +146,7 @@ class Game extends Component {
                   gameMeta={this.gameMeta}
                   items={this.state.items}
                   onToggle={this.toggleCompleted}
-                  downstreamHandlers={this.props.downstreamHandlers}
+                  downstreamHandlers={this.downstreamHandlers}
                 />
               </div>
             </div>
