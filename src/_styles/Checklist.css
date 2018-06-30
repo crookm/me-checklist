@@ -1,3 +1,8 @@
+::placeholder {
+  color: #343434;
+  opacity: 1;
+}
+
 .checklist .sticky.is-stuck .listmenu {
   margin: 5px 5px 0;
 
@@ -19,25 +24,38 @@
 
 .checklist .listmenu {
   height: 60px;
+}
+
+.checklist .datapanel {
+  color: #fff;
 
   background: #5f5f5f;
   border: 1px solid #444242;
 
-  padding: 11px;
+  padding: 8px;
   margin-bottom: 10px;
 
   transition: all 0.4s;
 }
 
-.checklist .listmenu .button {
+.checklist .datapanel label {
+  color: #fff;
+}
+
+.checklist .datapanel .input-group {
+  margin-bottom: 0;
+}
+
+.checklist .datapanel .button {
   margin: 0;
 }
 
-.checklist .listmenu .button.small i {
-  font-size: 0.75rem;
+.checklist .datapanel .button.small,
+.checklist .datapanel .button.small i {
+  font-size: 0.85rem;
 }
 
-.checklist .listmenu p {
+.checklist .datapanel p {
   margin: 5px 0;
 }
 

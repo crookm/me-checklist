@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+import ControlPanel from "./ControlPanel";
 import HeroPrevNext from "./HeroPrevNext";
 
 import "../_styles/Checklist.css";
@@ -58,10 +59,10 @@ class Checklist extends Component {
             data-anchor="list-actual"
             style={{ width: "100%" }}
           >
-            <div className="row listmenu">
+            <div className="row listmenu datapanel">
               <div className="columns">
-                <Link to="/" className="button small">
-                  &#x2190; game list
+                <Link to="/" className="button">
+                  &larr; game list
                 </Link>
               </div>
               <div className="columns shrink">
@@ -170,6 +171,11 @@ class Checklist extends Component {
             </div>
           </div>
         </div>
+
+        <ControlPanel
+          syncAvailable
+          downstreamHandlers={this.props.downstreamHandlers}
+        />
 
         <div id="list-actual">
           {Object.entries(this.props.items).map(([key, entry]) => (
@@ -320,7 +326,7 @@ class Checklist extends Component {
           </div>
         </div>
         <p style={{ margin: "1rem 0" }}>
-          <Link to="/">&#x2190; return to game list</Link>
+          <Link to="/">&larr; return to game list</Link>
         </p>
       </div>
     );
