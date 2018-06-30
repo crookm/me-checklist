@@ -62,7 +62,7 @@ class Checklist extends Component {
             <div className="row listmenu datapanel">
               <div className="columns">
                 <Link to="/" className="button">
-                  &larr; game list
+                  &larr; games
                 </Link>
               </div>
               <div className="columns shrink">
