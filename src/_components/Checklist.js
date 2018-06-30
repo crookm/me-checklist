@@ -56,7 +56,7 @@ class Checklist extends Component {
             className="sticky"
             data-sticky
             data-sticky-on="small"
-            data-anchor="list-actual"
+            data-anchor="list-belowmenubar"
             style={{ width: "100%" }}
           >
             <div className="row listmenu datapanel">
@@ -172,159 +172,161 @@ class Checklist extends Component {
           </div>
         </div>
 
-        <ControlPanel
-          game={this.props.game}
-          items={this.props.items}
-          syncAvailable
-          downstreamHandlers={this.props.downstreamHandlers}
-        />
+        <div id="list-belowmenubar">
+          <ControlPanel
+            game={this.props.game}
+            items={this.props.items}
+            syncAvailable
+            downstreamHandlers={this.props.downstreamHandlers}
+          />
 
-        <div id="list-actual">
-          {Object.entries(this.props.items).map(([key, entry]) => (
-            <div key={key} className={`item i-${key}`}>
-              {entry["wiki"] ? (
-                <div
-                  className={
-                    /<[a-z][\s\S]*>/i.test(entry.title)
-                      ? "row head milestone"
-                      : "row head"
-                  }
-                  onClick={e => this.toggleCarat(key, e)}
-                >
-                  <div className="columns shrink">
-                    <label
-                      className="checktainer"
-                      onClick={e => e.stopPropagation()}
-                    >
-                      <input
-                        type="checkbox"
-                        onChange={e => this.handleToggle(key, e)}
-                        checked={entry.completion.done ? true : false}
-                      />
-                      <span className="checkmark" />
-                    </label>
-                  </div>
-                  <div className="columns titlerow">
-                    <div className="row">
-                      <div className="columns title">
-                        <p>
-                          <a
-                            dangerouslySetInnerHTML={{ __html: entry.title }}
-                          />
-                        </p>
-                      </div>
-                      {this.state.showWikiLinks && (
-                        <div className="columns shrink">
-                          <p>
-                            <i
-                              className="material-icons"
-                              style={{ margin: "9px 0 10px" }}
-                            >
-                              <a
-                                href={entry.wiki}
-                                target="_BLANK"
-                                title="View on the Mass Effect Wiki"
-                                style={{
-                                  color: "#d505ff"
-                                }}
-                                onClick={e => {
-                                  this.props.downstreamHandlers.handleTrackOutboundLink(
-                                    e,
-                                    {
-                                      game: this.props.game,
-                                      linkSpecPurpose: "out to wikia",
-                                      linkVisualReferrer: `checklist item: ${entry.title.replace(
-                                        /<\/?[^>]+(>|$)/g,
-                                        ""
-                                      )}`,
-                                      linkVisualOrder: key
-                                    }
-                                  );
-
-                                  e.stopPropagation();
-                                }}
-                              >
-                                launch
-                              </a>
-                            </i>
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <div className="columns shrink">
-                    <a>
-                      <div className="carat up down" />
-                    </a>
-                  </div>
-                </div>
-              ) : (
-                this.state.showSupplementary && (
-                  // no wiki entry, so it's a hint
+          <div id="list-actual">
+            {Object.entries(this.props.items).map(([key, entry]) => (
+              <div key={key} className={`item i-${key}`}>
+                {entry["wiki"] ? (
                   <div
-                    className="row head"
-                    style={{
-                      padding: "0 10px",
-                      background: "#5f5f5f",
-                      borderBottom: "1px solid #444242"
-                    }}
+                    className={
+                      /<[a-z][\s\S]*>/i.test(entry.title)
+                        ? "row head milestone"
+                        : "row head"
+                    }
                     onClick={e => this.toggleCarat(key, e)}
                   >
                     <div className="columns shrink">
                       <label
                         className="checktainer"
-                        style={{ cursor: "unset" }}
-                      />
+                        onClick={e => e.stopPropagation()}
+                      >
+                        <input
+                          type="checkbox"
+                          onChange={e => this.handleToggle(key, e)}
+                          checked={entry.completion.done ? true : false}
+                        />
+                        <span className="checkmark" />
+                      </label>
                     </div>
-                    <div className="columns title">
-                      <p>
-                        <a style={{ color: "#f0f0f0" }}>{entry.title}</a>
-                      </p>
+                    <div className="columns titlerow">
+                      <div className="row">
+                        <div className="columns title">
+                          <p>
+                            <a
+                              dangerouslySetInnerHTML={{ __html: entry.title }}
+                            />
+                          </p>
+                        </div>
+                        {this.state.showWikiLinks && (
+                          <div className="columns shrink">
+                            <p>
+                              <i
+                                className="material-icons"
+                                style={{ margin: "9px 0 10px" }}
+                              >
+                                <a
+                                  href={entry.wiki}
+                                  target="_BLANK"
+                                  title="View on the Mass Effect Wiki"
+                                  style={{
+                                    color: "#d505ff"
+                                  }}
+                                  onClick={e => {
+                                    this.props.downstreamHandlers.handleTrackOutboundLink(
+                                      e,
+                                      {
+                                        game: this.props.game,
+                                        linkSpecPurpose: "out to wikia",
+                                        linkVisualReferrer: `checklist item: ${entry.title.replace(
+                                          /<\/?[^>]+(>|$)/g,
+                                          ""
+                                        )}`,
+                                        linkVisualOrder: key
+                                      }
+                                    );
+
+                                    e.stopPropagation();
+                                  }}
+                                >
+                                  launch
+                                </a>
+                              </i>
+                            </p>
+                          </div>
+                        )}
+                      </div>
                     </div>
                     <div className="columns shrink">
                       <a>
-                        <div className="carat down up" />
+                        <div className="carat up down" />
                       </a>
                     </div>
                   </div>
-                )
-              )}
-
-              <div className={`row info ${entry["wiki"] ? "" : "hint"}`}>
-                <div className="columns small-12">
-                  <h3 dangerouslySetInnerHTML={{ __html: entry.title }} />
-                  <p dangerouslySetInnerHTML={{ __html: entry.desc }} />
-
-                  {this.state.showTimelineSuggestions && (
-                    <div className="row timeline">
-                      <div className="columns medium-6">
-                        <h4>Complete after</h4>
-                        <p
-                          dangerouslySetInnerHTML={{
-                            __html: entry.timeline.after
-                          }}
+                ) : (
+                  this.state.showSupplementary && (
+                    // no wiki entry, so it's a hint
+                    <div
+                      className="row head"
+                      style={{
+                        padding: "0 10px",
+                        background: "#5f5f5f",
+                        borderBottom: "1px solid #444242"
+                      }}
+                      onClick={e => this.toggleCarat(key, e)}
+                    >
+                      <div className="columns shrink">
+                        <label
+                          className="checktainer"
+                          style={{ cursor: "unset" }}
                         />
                       </div>
-                      <div className="columns medium-6">
-                        <h4>Complete before</h4>
-                        <p
-                          dangerouslySetInnerHTML={{
-                            __html: entry.timeline.before
-                          }}
-                        />
+                      <div className="columns title">
+                        <p>
+                          <a style={{ color: "#f0f0f0" }}>{entry.title}</a>
+                        </p>
+                      </div>
+                      <div className="columns shrink">
+                        <a>
+                          <div className="carat down up" />
+                        </a>
                       </div>
                     </div>
-                  )}
+                  )
+                )}
+
+                <div className={`row info ${entry["wiki"] ? "" : "hint"}`}>
+                  <div className="columns small-12">
+                    <h3 dangerouslySetInnerHTML={{ __html: entry.title }} />
+                    <p dangerouslySetInnerHTML={{ __html: entry.desc }} />
+
+                    {this.state.showTimelineSuggestions && (
+                      <div className="row timeline">
+                        <div className="columns medium-6">
+                          <h4>Complete after</h4>
+                          <p
+                            dangerouslySetInnerHTML={{
+                              __html: entry.timeline.after
+                            }}
+                          />
+                        </div>
+                        <div className="columns medium-6">
+                          <h4>Complete before</h4>
+                          <p
+                            dangerouslySetInnerHTML={{
+                              __html: entry.timeline.before
+                            }}
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
 
-          <div className="item">
-            <HeroPrevNext
-              game={this.props.game}
-              gameMeta={this.props.gameMeta}
-            />
+            <div className="item">
+              <HeroPrevNext
+                game={this.props.game}
+                gameMeta={this.props.gameMeta}
+              />
+            </div>
           </div>
         </div>
         <p style={{ margin: "1rem 0" }}>
