@@ -32,6 +32,20 @@ class SyncPanel extends Component {
       syncActive: false
     };
 
+    if (
+      typeof this.props.downstreamHandlers.handleGetUI("syncAuto") ===
+      "undefined"
+    ) {
+      this.props.downstreamHandlers.handleSetUI("syncAuto", true);
+    }
+
+    if (
+      typeof this.props.downstreamHandlers.handleGetUI("syncAutoToggle") ===
+      "undefined"
+    ) {
+      this.props.downstreamHandlers.handleSetUI("syncAutoToggle", true);
+    }
+
     setInterval(() => {
       if (this.state.syncAuto && this.state.syncLink) this.doSync();
     }, 1000 * 60 * 1);
