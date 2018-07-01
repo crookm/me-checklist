@@ -28,7 +28,8 @@ class SyncPanel extends Component {
         typeof this.props.downstreamHandlers.handleGetUI("syncLast") !==
         "undefined"
           ? new Date(this.props.downstreamHandlers.handleGetUI("syncLast"))
-          : "never",
+          : null,
+      syncAgo: null,
       syncActive: false
     };
 
@@ -50,8 +51,15 @@ class SyncPanel extends Component {
       if (this.state.syncAuto && this.state.syncLink) this.doSync();
     }, 1000 * 60 * 1);
 
+    setInterval(() => this.tick(this.state.syncLast), 1000 * 1);
+
     this.setLink = this.setLink.bind(this);
     this.doSync = this.doSync.bind(this);
+    this.tick = this.tick.bind(this);
+  }
+
+  componentWillMount() {
+    this.tick(this.state.syncLast); // initial tick, so it's not empty on load
   }
 
   componentWillReceiveProps(nextProps) {
@@ -90,8 +98,9 @@ class SyncPanel extends Component {
 
   setLink(input) {
     if (input === null) {
-      this.setState({ syncLink: null });
+      this.setState({ syncLink: null, syncLast: null });
       this.props.downstreamHandlers.handleSetUI("syncLink", null);
+      this.props.downstreamHandlers.handleSetUI("syncLast", null);
     } else {
       if (input.length < 6) {
         this.refs["sync-passphrase_input-error"].innerHTML =
@@ -125,6 +134,7 @@ class SyncPanel extends Component {
 
           this.setState({ syncActive: false, syncLast: new Date() });
           this.props.downstreamHandlers.handleSetUI("syncLast", new Date());
+          this.tick(this.state.syncLast);
         },
         err => {
           // error from http
@@ -135,6 +145,17 @@ class SyncPanel extends Component {
         }
       );
     }
+  }
+
+  tick(lastSync) {
+    this.setState({
+      syncAgo:
+        lastSync === null
+          ? "never"
+          : this.timeSince(lastSync) === "0 seconds"
+            ? "just now"
+            : `${this.timeSince(lastSync)} ago`
+    });
   }
 
   render() {
@@ -156,12 +177,7 @@ class SyncPanel extends Component {
             <p>
               <b>Sync passphrase</b>: ****{this.state.syncLink.slice(-4)}
               <br />
-              <b>Last sync</b>:{" "}
-              {typeof this.state.syncLast === "string"
-                ? this.state.syncLast
-                : this.timeSince(this.state.syncLast) === "0 seconds"
-                  ? "just now"
-                  : `${this.timeSince(this.state.syncLast)} ago`}
+              <b>Last sync</b>: {this.state.syncAgo}
             </p>
             <label>
               <input
