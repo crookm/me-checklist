@@ -47,11 +47,14 @@ class SyncPanel extends Component {
       this.props.downstreamHandlers.handleSetUI("syncAutoToggle", true);
     }
 
-    setInterval(() => {
+    this.timerBGSync = setInterval(() => {
       if (this.state.syncAuto && this.state.syncLink) this.doSync();
     }, 1000 * 60 * 1);
 
-    setInterval(() => this.tick(this.state.syncLast), 1000 * 1);
+    this.timerLastSync = setInterval(
+      () => this.tick(this.state.syncLast),
+      1000 * 1
+    );
 
     this.setLink = this.setLink.bind(this);
     this.doSync = this.doSync.bind(this);
@@ -67,6 +70,12 @@ class SyncPanel extends Component {
       syncActive: nextProps.syncActive,
       syncLast: nextProps.syncLast
     });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerBGSync);
+    clearInterval(this.timerLastSync);
+    this.api.closeAll();
   }
 
   timeSince(date) {

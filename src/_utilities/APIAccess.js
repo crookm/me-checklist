@@ -5,12 +5,19 @@ class API {
       writeMerge: "0HCZD/leGgCc6kXNwljTgKAJqLvRdaZXSFaSk13FBDCEC0NaskNY8g=="
     };
 
+    this.ajaxReqs = [];
+
     this.game = game;
 
     this.writeMerge = this._debounce((link, data, successCB, errorCB) => {
       this._writeMerge(link, data, successCB, errorCB);
     }, 1000 * 2);
     this._writeMerge = this._writeMerge.bind(this);
+  }
+
+  closeAll() {
+    this.ajaxReqs.forEach(req => req.abort());
+    this.ajaxReqs = [];
   }
 
   _debounce(func, wait, immediate) {
@@ -32,7 +39,7 @@ class API {
   }
 
   _writeMerge(link, data, successCB, errorCB) {
-    window.$.ajax({
+    let ajaxReq = window.$.ajax({
       url: `${this.apiBase}/write/merge/${this.game}/${link}?code=${
         this.apiCodes["writeMerge"]
       }`,
@@ -42,9 +49,19 @@ class API {
       data: data || "{}",
       dataType: "json",
 
-      success: data => successCB(data),
-      error: err => errorCB(err)
+      success: data => {
+        this.ajaxReqs.splice(ajaxReqIndex, 1);
+        successCB(data);
+      },
+      error: err => {
+        this.ajaxReqs.splice(ajaxReqIndex, 1);
+        if (err.statusText !== "abort") {
+          errorCB(err);
+        } else console.info("API._writeMerge ajax call was aborted.");
+      }
     });
+
+    let ajaxReqIndex = this.ajaxReqs.push(ajaxReq).length - 1;
   }
 }
 
