@@ -379,7 +379,7 @@ export default {
     desc: `This assignment is acquired at the end of UNC: Geth Incursions, which is acquired by either hacking one of the geth terminals on Feros, or by simply travelling to the Armstrong Nebula.<br /><br />
       Commander Shepard has acquired detailed data files from a geth outpost. Given the history of the quarians, these might be of interest to Tali.<br /><br />
       <b>Note</b>: Make sure Tali gets the data, regardless of your play-style. You will get a paragon point for letting her take a copy.`,
-    wiki: `http://masseffect.wikia.com/wiki/Garrus:_Find_Dr._Saleon`,
+    wiki: `http://masseffect.wikia.com/wiki/Tali_and_the_Geth`,
     timeline: {
       before: `Chapter 4: Noveria - Geth Interest`,
       after: `Feros: The Thorian`
@@ -404,7 +404,7 @@ export default {
   },
   49: {
     title: `HINT: Take Wrex with you`,
-    desc: `In Wrex: Family Armor, make sure Garrus is actually in your squad for the mission.`,
+    desc: `In Wrex: Family Armor, make sure Wrex is actually in your squad for the mission.`,
     timeline: {
       before: `Wrex: Family Armor`,
       after: `Wrex: Family Armor`
@@ -574,6 +574,18 @@ export default {
     timeline: {
       before: `Virmire: Assault (End)`,
       after: `Virmire: Assault (Planting the bomb)`
+    },
+    completion: {
+      done: false,
+      datetime: null
+    }
+  },
+  69: {
+    title: `HINT: Buy the Elkoss Combine license`,
+    desc: `Purchase the Elkoss Combine license from Expat, who is located in the Wards Markets on the Citadel`,
+    timeline: {
+      before: `Chapter 6: Lockdown`,
+      after: `Chapter 1: Citadel - Expose Saren`
     },
     completion: {
       done: false,
