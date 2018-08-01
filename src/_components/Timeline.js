@@ -45,7 +45,7 @@ class Timeline extends Component {
 
         if (milestone.length) {
           scrollTarget = index;
-          let scrollTargetTop = milestone.offset().top - 80;
+          let scrollTargetTop = milestone.offset().top - 150;
 
           // perform the attention-grabbing zoom-in-and-out
           milestone.delay(200).addClass("overhere");
@@ -70,7 +70,7 @@ class Timeline extends Component {
         .$(window)
         .scroll(function() {
           let viewLine =
-            window.$(window).scrollTop() + window.$(window).height() / 4;
+            window.$(window).scrollTop() + window.$(window).height() / 3;
           let active = -1;
 
           if (scrollTarget === false) {
