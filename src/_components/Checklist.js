@@ -227,6 +227,7 @@ class Checklist extends Component {
                                 <a
                                   href={entry.wiki}
                                   target="_BLANK"
+                                  rel="noopener noreferrer"
                                   title="View on the Mass Effect Wiki"
                                   style={{
                                     color: "#d505ff"
