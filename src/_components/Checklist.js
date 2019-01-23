@@ -211,11 +211,7 @@ class Checklist extends Component {
                     <div className="columns titlerow">
                       <div className="row">
                         <div className="columns title">
-                          <p>
-                            <a
-                              dangerouslySetInnerHTML={{ __html: entry.title }}
-                            />
-                          </p>
+                          <p dangerouslySetInnerHTML={{ __html: entry.title }} />
                         </div>
                         {this.state.showWikiLinks && (
                           <div className="columns shrink">
@@ -258,9 +254,7 @@ class Checklist extends Component {
                       </div>
                     </div>
                     <div className="columns shrink">
-                      <a>
-                        <div className="carat up down" />
-                      </a>
+                      <div className="carat up down" />
                     </div>
                   </div>
                 ) : (
@@ -282,14 +276,12 @@ class Checklist extends Component {
                         />
                       </div>
                       <div className="columns title">
-                        <p>
-                          <a style={{ color: "#f0f0f0" }}>{entry.title}</a>
+                        <p style={{ color: "#f0f0f0" }}>
+                          {entry.title}
                         </p>
                       </div>
                       <div className="columns shrink">
-                        <a>
-                          <div className="carat down up" />
-                        </a>
+                        <div className="carat down up" />
                       </div>
                     </div>
                   )

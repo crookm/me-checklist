@@ -38,15 +38,15 @@ class Home extends Component {
             <Link to="/about" className="link float-right">
               About
             </Link>
-            <a className="close float-right" onClick={this.toggleHelp}>
+            <p className="close float-right" onClick={this.toggleHelp}>
               &times;
-            </a>
+            </p>
           </div>
         )}
         {!this.state.showHelp && (
-          <a className="help-hidden" onClick={this.toggleHelp}>
+          <p className="help-hidden" onClick={this.toggleHelp}>
             &dArr;
-          </a>
+          </p>
         )}
 
         <div
