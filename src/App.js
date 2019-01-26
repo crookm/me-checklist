@@ -13,12 +13,6 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.migrateLSKeys({
-      one: 1,
-      two: 2,
-      three: 3
-    }); // migrate checklist localstorage to new key dtypes
-
     this.isLocal = Boolean(
       window.location.hostname === "localhost" ||
         // [::1] is the IPv6 localhost address.
@@ -58,24 +52,6 @@ class App extends Component {
         }
       }
     }
-  }
-
-  migrateLSKeys(conv) {
-    // migrate keys in local browser storage
-    Object.entries(conv).forEach(([oldKey, newKey]) => {
-      if (typeof Storage !== "undefined") {
-        if (typeof window.localStorage[oldKey] === "string") {
-          window.localStorage[newKey] = window.localStorage[oldKey];
-          delete window.localStorage[oldKey];
-
-          window.appInsights.trackEvent("migrateLocalStorageKey", {
-            oldKey: oldKey,
-            newKey: newKey,
-            dev: this.props.isLocal
-          });
-        }
-      }
-    });
   }
 
   // functions for downstream pages
