@@ -245,7 +245,7 @@ class SyncPanel extends Component {
             <div className="input-group">
               <input
                 className="input-group-field"
-                type="text"
+                type="password"
                 placeholder="Passphrase"
                 ref="sync-passphrase"
               />
