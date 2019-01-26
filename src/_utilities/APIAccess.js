@@ -1,12 +1,7 @@
 class API {
   constructor(game) {
-    this.apiBase = "https://me-checklist-api.azurewebsites.net/api";
-    this.apiCodes = {
-      writeMerge: "0HCZD/leGgCc6kXNwljTgKAJqLvRdaZXSFaSk13FBDCEC0NaskNY8g=="
-    };
-
+    this.apiBase = "https://us-central1-me-checklist.cloudfunctions.net";
     this.ajaxReqs = [];
-
     this.game = game;
 
     this.writeMerge = this._debounce((link, data, successCB, errorCB) => {
@@ -40,14 +35,11 @@ class API {
 
   _writeMerge(link, data, successCB, errorCB) {
     let ajaxReq = window.$.ajax({
-      url: `${this.apiBase}/write/merge/${this.game}/${link}?code=${
-        this.apiCodes["writeMerge"]
-      }`,
+      url: `${this.apiBase}/writemerge?game=${this.game}`,
       type: "POST",
       contentType: "application/json",
 
-      data: data || "{}",
-      dataType: "json",
+      data: JSON.stringify({ passphrase: link, data: data || {} }),
 
       success: data => {
         this.ajaxReqs.splice(ajaxReqIndex, 1);

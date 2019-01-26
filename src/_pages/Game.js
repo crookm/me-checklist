@@ -122,7 +122,7 @@ class Game extends Component {
               // success from http
               this.props.downstreamHandlers.handleSyncResponse(
                 data,
-                this.props.items
+                this.state.items
               );
 
               this.setState({ syncActive: false, syncLast: new Date() });
@@ -141,20 +141,12 @@ class Game extends Component {
     );
   }
 
-  handleSyncResponse(data) {
+  handleSyncResponse(data, items) {
+    let hydrated = items;
     if (Object.keys(data).length > 0) {
-      window.localStorage[this.props.game] = JSON.stringify(data);
-      let hydrated = Object.keys(this.state.items).reduce((out, current) => {
-        out[current] = this.state.items[current];
-        if (data[current].datetime !== null) {
-          out[current].completion = {
-            done: data[current] ? data[current].done : false,
-            datetime: data[current] ? new Date(data[current].datetime) : null
-          };
-        }
-
-        return out;
-      }, {});
+      Object.entries(data).forEach(([key, entry]) => {
+        hydrated[key]["completion"] = entry
+      });
 
       this.setState({ items: hydrated });
     } else {
