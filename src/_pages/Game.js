@@ -143,12 +143,14 @@ class Game extends Component {
 
   handleSyncResponse(data, items) {
     let hydrated = items;
+    let stored = JSON.parse(window.localStorage[this.props.game]);
     if (Object.keys(data).length > 0) {
       Object.entries(data).forEach(([key, entry]) => {
-        hydrated[key]["completion"] = entry
+        stored[key] = hydrated[key]["completion"] = entry;
       });
 
       this.setState({ items: hydrated });
+      window.localStorage[this.props.game] = JSON.stringify(stored);
     } else {
       console.log("Sync response was empty");
     }
