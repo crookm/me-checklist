@@ -48,7 +48,7 @@ class SyncPanel extends Component {
     }
 
     this.timerBGSync = setInterval(() => {
-      if (this.state.syncAuto && this.state.syncLink) this.doSync();
+      if (this.state.syncAuto && this.state.syncLink) this.doSync(false, false);
     }, 1000 * 60 * 1);
 
     this.timerLastSync = setInterval(
@@ -115,14 +115,14 @@ class SyncPanel extends Component {
         this.refs["sync-passphrase_input-error"].innerHTML =
           "Passphrases must be > 10 characters. We recommend a short sentence of a few random words.";
       } else {
-        this.setState({ syncLink: input }, () => this.doSync(true));
+        this.setState({ syncLink: input }, () => this.doSync(true, true));
         this.props.downstreamHandlers.handleSetUI("syncLink", input);
         this.refs["sync-passphrase_input-error"].innerHTML = "";
       }
     }
   }
 
-  doSync(bypassDebounce) {
+  doSync(bypassDebounce, interacted) {
     if (typeof Storage !== "undefined") {
       this.setState({ syncActive: true });
 
@@ -138,7 +138,8 @@ class SyncPanel extends Component {
           // success from http
           this.props.downstreamHandlers.handleSyncResponse(
             data,
-            this.props.items
+            this.props.items,
+            interacted
           );
 
           this.setState({ syncActive: false, syncLast: new Date() });

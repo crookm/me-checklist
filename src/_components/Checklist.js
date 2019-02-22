@@ -211,7 +211,9 @@ class Checklist extends Component {
                     <div className="columns titlerow">
                       <div className="row">
                         <div className="columns title">
-                          <p dangerouslySetInnerHTML={{ __html: entry.title }} />
+                          <p
+                            dangerouslySetInnerHTML={{ __html: entry.title }}
+                          />
                         </div>
                         {this.state.showWikiLinks && (
                           <div className="columns shrink">
@@ -231,15 +233,9 @@ class Checklist extends Component {
                                   onClick={e => {
                                     this.props.downstreamHandlers.handleTrackOutboundLink(
                                       e,
-                                      {
-                                        game: this.props.game,
-                                        linkSpecPurpose: "out to wikia",
-                                        linkVisualReferrer: `checklist item: ${entry.title.replace(
-                                          /<\/?[^>]+(>|$)/g,
-                                          ""
-                                        )}`,
-                                        linkVisualOrder: key
-                                      }
+                                      "Checklist",
+                                      "Navigated to Wiki",
+                                      `G${this.props.game}#${key}`
                                     );
 
                                     e.stopPropagation();
@@ -276,9 +272,7 @@ class Checklist extends Component {
                         />
                       </div>
                       <div className="columns title">
-                        <p style={{ color: "#f0f0f0" }}>
-                          {entry.title}
-                        </p>
+                        <p style={{ color: "#f0f0f0" }}>{entry.title}</p>
                       </div>
                       <div className="columns shrink">
                         <div className="carat down up" />

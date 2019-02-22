@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
+import ReactGA from "react-ga";
+
 // error pages
 import NotFound from "./_pages/_errors/NotFound";
 
@@ -23,9 +25,12 @@ class App extends Component {
         )
     );
 
+    ReactGA.initialize("UA-135056719-1");
+
     this.pageViewTimerStart = new Date();
 
     this.handleTrackOutboundLink = this.handleTrackOutboundLink.bind(this);
+    this.handleTrackRemoteSync = this.handleTrackRemoteSync.bind(this);
     this.handleTrackPageView = this.handleTrackPageView.bind(this);
     this.handleSetPageTitle = this.handleSetPageTitle.bind(this);
     this.handleLoadUserData = this.handleLoadUserData.bind(this);
@@ -35,6 +40,7 @@ class App extends Component {
 
     this.downstreamHandlers = {
       handleTrackOutboundLink: this.handleTrackOutboundLink,
+      handleTrackRemoteSync: this.handleTrackRemoteSync,
       handleTrackPageView: this.handleTrackPageView,
       handleSetPageTitle: this.handleSetPageTitle,
       handleLoadUserData: this.handleLoadUserData,
@@ -55,28 +61,27 @@ class App extends Component {
   }
 
   // functions for downstream pages
-  handleTrackOutboundLink(e, aiProperties, aiMetrics) {
-    window.appInsights.trackEvent(
-      "linkedOutbound",
-      {
-        dev: this.isLocal,
-        href: e.target.href,
-        target: e.target.target,
-        ...aiProperties
-      },
-      {
-        secsToClickFromPageReady:
-          new Date(new Date() - this.pageViewTimerStart).getTime() / 1000,
-        ...aiMetrics
-      }
-    );
+  handleTrackOutboundLink(e, category, action, label) {
+    ReactGA.event({
+      category: category,
+      action: action,
+      label: label
+    });
+  }
+
+  handleTrackRemoteSync(game, count, interacted) {
+    ReactGA.event({
+      category: "Checklist",
+      action: "Synced to cloud",
+      label: `G${game}`,
+      value: count,
+      nonInteraction: !interacted
+    });
   }
 
   handleTrackPageView() {
     this.pageViewTimerStart = new Date();
-    window.appInsights.trackPageView(undefined, undefined, {
-      dev: this.props.isLocal
-    });
+    ReactGA.pageview(window.location.pathname + window.location.search)
   }
 
   handleSetPageTitle(name) {
@@ -88,11 +93,7 @@ class App extends Component {
       if (typeof window.localStorage[game] === "string") {
         let data = JSON.parse(window.localStorage[game]);
 
-        let analyticsData = {
-          completedMissionsAtLoad: 0,
-          firstCompletedMissionAtLoad: null,
-          lastCompletedMissionAtLoad: null
-        };
+        let completed = 0;
 
         let hydrated = Object.keys(def).reduce((out, current) => {
           out[current] = def[current];
@@ -102,44 +103,17 @@ class App extends Component {
             datetime: data[current] ? new Date(data[current].datetime) : null
           };
 
-          if (out[current].completion.done) {
-            analyticsData.completedMissionsAtLoad++;
-
-            if (
-              out[current].completion.datetime <
-                analyticsData.firstCompletedMissionAtLoad ||
-              !analyticsData.firstCompletedMissionAtLoad
-            )
-              // this item is earlier than the earliest item, or the earliest item hasn't been set yet
-              analyticsData.firstCompletedMissionAtLoad =
-                out[current].completion.datetime;
-            if (
-              out[current].completion.datetime >
-                analyticsData.lastCompletedMissionAtLoad ||
-              !analyticsData.lastCompletedMissionAtLoad
-            )
-              // this item is later than the latest item, or the latest item hasn't been set yet
-              analyticsData.lastCompletedMissionAtLoad =
-                out[current].completion.datetime;
-          }
-
+          if (out[current].completion.done) completed++;
           return out;
         }, {});
 
-        window.appInsights.trackEvent(
-          "loadUserData",
-          {
-            game: game,
-            firstCompletedMissionAtLoad:
-              analyticsData.firstCompletedMissionAtLoad,
-            lastCompletedMissionAtLoad:
-              analyticsData.lastCompletedMissionAtLoad,
-            dev: this.props.isLocal
-          },
-          {
-            completedMissionsAtLoad: analyticsData.completedMissionsAtLoad
-          }
-        );
+        ReactGA.event({
+          category: "Checklist",
+          action: "Loaded local completed missions data",
+          label: `G${game}`,
+          value: completed,
+          nonInteraction: true
+        });
 
         set(hydrated);
       }
@@ -163,12 +137,11 @@ class App extends Component {
       );
     }
 
-    window.appInsights.trackEvent("toggleCompleteMission", {
-      game: game,
-      itemKey: key,
-      itemTitle: items[key].title.replace(/<\/?[^>]+(>|$)/g, ""),
-      itemStatus: toggled.done,
-      dev: this.props.isLocal
+    ReactGA.event({
+      category: "Checklist",
+      action: "Toggle mission completion status",
+      label: `G${game}#${key}`,
+      value: toggled.done ? 1 : 0
     });
 
     set(items); // return the new items so caller can update state
@@ -195,11 +168,32 @@ class App extends Component {
       ui_settings[key] = value;
       window.localStorage["ui_settings"] = JSON.stringify(ui_settings);
 
-      window.appInsights.trackEvent("toggleUISetting", {
-        setting: key,
-        value: value,
-        dev: this.isLocal
-      });
+      let uiTrackIgnore = ["syncLink", "syncLast"];
+      if (!uiTrackIgnore.includes(key)) {
+        // ignore sensitive UI settings like the sync passphrase
+        ReactGA.event({
+          category: "UI",
+          action: "Toggled UI setting",
+          label: key,
+          value: value ? 1 : 0
+        });
+      }
+
+      if (key === "syncLink") {
+        if (value) {
+          // linked to account
+          ReactGA.event({
+            category: "UI",
+            action: "Connected cloud sync account"
+          });
+        } else {
+          // unlinked
+          ReactGA.event({
+            category: "UI",
+            action: "Disconnected cloud sync account"
+          });
+        }
+      }
     }
   }
 

@@ -122,7 +122,8 @@ class Game extends Component {
               // success from http
               this.props.downstreamHandlers.handleSyncResponse(
                 data,
-                this.state.items
+                this.state.items,
+                true
               );
 
               this.setState({ syncActive: false, syncLast: new Date() });
@@ -141,10 +142,12 @@ class Game extends Component {
     );
   }
 
-  handleSyncResponse(data, items) {
+  handleSyncResponse(data, items, interacted) {
     let hydrated = items;
     let stored = JSON.parse(window.localStorage[this.props.game]);
     if (Object.keys(data).length > 0) {
+      this.props.downstreamHandlers.handleTrackRemoteSync(
+        this.props.game, Object.keys(data).lengt, interacted);
       Object.entries(data).forEach(([key, entry]) => {
         stored[key] = hydrated[key]["completion"] = entry;
       });
