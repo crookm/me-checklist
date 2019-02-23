@@ -29,7 +29,7 @@ class App extends Component {
 
     this.pageViewTimerStart = new Date();
 
-    this.handleTrackOutboundLink = this.handleTrackOutboundLink.bind(this);
+    this.handleTrackEvent = this.handleTrackEvent.bind(this);
     this.handleTrackRemoteSync = this.handleTrackRemoteSync.bind(this);
     this.handleTrackPageView = this.handleTrackPageView.bind(this);
     this.handleSetPageTitle = this.handleSetPageTitle.bind(this);
@@ -39,7 +39,7 @@ class App extends Component {
     this.handleSetUI = this.handleSetUI.bind(this);
 
     this.downstreamHandlers = {
-      handleTrackOutboundLink: this.handleTrackOutboundLink,
+      handleTrackEvent: this.handleTrackEvent,
       handleTrackRemoteSync: this.handleTrackRemoteSync,
       handleTrackPageView: this.handleTrackPageView,
       handleSetPageTitle: this.handleSetPageTitle,
@@ -61,7 +61,7 @@ class App extends Component {
   }
 
   // functions for downstream pages
-  handleTrackOutboundLink(e, category, action, label) {
+  handleTrackEvent(category, action, label) {
     ReactGA.event({
       category: category,
       action: action,

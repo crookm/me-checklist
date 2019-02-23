@@ -47,7 +47,7 @@ class About extends Component {
               <a
                 href="https://github.com/crookm/me-checklist"
                 onClick={e =>
-                  this.props.downstreamHandlers.handleTrackOutboundLink(e, "Navigation", "Link click on About page", "Repository")
+                  this.props.downstreamHandlers.handleTrackEvent("Navigation", "Link click on About page", "Repository")
                 }
               >
                 repository
@@ -55,7 +55,7 @@ class About extends Component {
               <a
                 href="https://www.crookm.com/"
                 onClick={e =>
-                  this.props.downstreamHandlers.handleTrackOutboundLink(e, "Navigation", "Link click on About page", "Blog")
+                  this.props.downstreamHandlers.handleTrackEvent("Navigation", "Link click on About page", "Blog")
                 }
               >
                 my blog
@@ -63,7 +63,7 @@ class About extends Component {
               <a
                 href="https://twitter.com/mattlc_3"
                 onClick={e =>
-                  this.props.downstreamHandlers.handleTrackOutboundLink(e, "Navigation", "Link click on About page", "Twitter")
+                  this.props.downstreamHandlers.handleTrackEvent("Navigation", "Link click on About page", "Twitter")
                 }
               >
                 Twitter

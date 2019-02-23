@@ -35,6 +35,14 @@ class Checklist extends Component {
     window.$(`.i-${index}`).toggleClass("active");
     window.$(`.i-${index} .carat`).toggleClass("down");
     window.$(`.i-${index} .info`).slideToggle("fast");
+
+    if (window.$(`.i-${index}`).hasClass("active")) {
+      // toggled details ON
+      this.props.downstreamHandlers.handleTrackEvent("Checklist", "Opened item details", `G${this.props.game}#${index}`);
+    } else {
+      // toggled details OFF
+      this.props.downstreamHandlers.handleTrackEvent("Checklist", "Closed item details", `G${this.props.game}#${index}`);
+    }
   }
 
   componentDidMount() {
@@ -231,8 +239,7 @@ class Checklist extends Component {
                                     color: "#d505ff"
                                   }}
                                   onClick={e => {
-                                    this.props.downstreamHandlers.handleTrackOutboundLink(
-                                      e,
+                                    this.props.downstreamHandlers.handleTrackEvent(
                                       "Checklist",
                                       "Navigated to Wiki",
                                       `G${this.props.game}#${key}`
