@@ -147,7 +147,7 @@ class Game extends Component {
     let stored = JSON.parse(window.localStorage[this.props.game]);
     if (Object.keys(data).length > 0) {
       this.props.downstreamHandlers.handleTrackRemoteSync(
-        this.props.game, Object.keys(data).lengt, interacted);
+        this.props.game, Object.keys(data).length, interacted);
       Object.entries(data).forEach(([key, entry]) => {
         stored[key] = hydrated[key]["completion"] = entry;
       });
