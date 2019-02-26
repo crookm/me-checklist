@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
+import { createBrowserHistory, createHashHistory } from "history";
 
 import ReactGA from "react-ga";
 
@@ -48,6 +49,8 @@ class App extends Component {
       handleGetUI: this.handleGetUI,
       handleSetUI: this.handleSetUI
     };
+
+    this.history = this.configureHistory();
   }
 
   componentDidMount() {
@@ -58,6 +61,13 @@ class App extends Component {
         }
       }
     }
+  }
+
+  configureHistory() {
+    // setup the browser history for the router, so we don't 404 as a PWA
+    return window.matchMedia("(display-mode: standalone)").matches
+      ? createHashHistory()
+      : createBrowserHistory();
   }
 
   // functions for downstream pages
@@ -81,7 +91,7 @@ class App extends Component {
 
   handleTrackPageView() {
     this.pageViewTimerStart = new Date();
-    ReactGA.pageview(window.location.pathname + window.location.search)
+    ReactGA.pageview(window.location.pathname + window.location.search);
   }
 
   handleSetPageTitle(name) {
@@ -199,7 +209,7 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
+      <Router history={this.history}>
         <Switch>
           <Route
             path="/"
@@ -265,7 +275,7 @@ class App extends Component {
             )}
           />
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
