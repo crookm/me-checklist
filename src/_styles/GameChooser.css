@@ -35,13 +35,13 @@ body,
 }
 
 .one > div {
-  background-image: url("/assets/img/game-bg-1.jpg");
+  background-image: url("https://crookm.ams3.cdn.digitaloceanspaces.com/media/for/me-checklist/game-bg-1.jpg");
 }
 .two > div {
-  background-image: url("/assets/img/game-bg-2.jpg");
+  background-image: url("https://crookm.ams3.cdn.digitaloceanspaces.com/media/for/me-checklist/game-bg-2.jpg");
 }
 .three > div {
-  background-image: url("/assets/img/game-bg-3.jpg");
+  background-image: url("https://crookm.ams3.cdn.digitaloceanspaces.com/media/for/me-checklist/game-bg-3.jpg");
 }
 
 .choose:hover > div,
