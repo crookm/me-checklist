@@ -95,7 +95,6 @@ class Game extends Component {
     }
 
     this.props.downstreamHandlers.handleSetPageTitle(this.state.title);
-    this.props.downstreamHandlers.handleTrackPageView();
   }
 
   toggleCompleted(key) {
@@ -146,8 +145,6 @@ class Game extends Component {
     let hydrated = items;
     let stored = JSON.parse(window.localStorage[this.props.game]);
     if (Object.keys(data).length > 0) {
-      this.props.downstreamHandlers.handleTrackRemoteSync(
-        this.props.game, Object.keys(data).length, interacted);
       Object.entries(data).forEach(([key, entry]) => {
         stored[key] = hydrated[key]["completion"] = entry;
       });

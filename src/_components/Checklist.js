@@ -35,14 +35,6 @@ class Checklist extends Component {
     window.$(`.i-${index}`).toggleClass("active");
     window.$(`.i-${index} .carat`).toggleClass("down");
     window.$(`.i-${index} .info`).slideToggle("fast");
-
-    if (window.$(`.i-${index}`).hasClass("active")) {
-      // toggled details ON
-      this.props.downstreamHandlers.handleTrackEvent("Checklist", "Opened item details", `G${this.props.game}#${index}`);
-    } else {
-      // toggled details OFF
-      this.props.downstreamHandlers.handleTrackEvent("Checklist", "Closed item details", `G${this.props.game}#${index}`);
-    }
   }
 
   componentDidMount() {
@@ -185,7 +177,7 @@ class Checklist extends Component {
             api={this.props.api}
             game={this.props.game}
             items={this.props.items}
-            syncAvailable
+            syncAvailable={false}
             downstreamHandlers={this.props.downstreamHandlers}
             syncActive={this.props.syncActive}
             syncLast={this.props.syncLast}
@@ -237,15 +229,6 @@ class Checklist extends Component {
                                   title="View on the Mass Effect Wiki"
                                   style={{
                                     color: "#d505ff"
-                                  }}
-                                  onClick={e => {
-                                    this.props.downstreamHandlers.handleTrackEvent(
-                                      "Checklist",
-                                      "Navigated to Wiki",
-                                      `G${this.props.game}#${key}`
-                                    );
-
-                                    e.stopPropagation();
                                   }}
                                 >
                                   launch

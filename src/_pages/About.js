@@ -8,7 +8,6 @@ import "../_styles/About.css";
 class About extends Component {
   componentDidMount() {
     this.props.downstreamHandlers.handleSetPageTitle("About");
-    this.props.downstreamHandlers.handleTrackPageView();
   }
 
   render() {
@@ -44,28 +43,13 @@ class About extends Component {
             <p>
               If you would like to contribute to this website, however, you can
               check out the{" "}
-              <a
-                href="https://github.com/crookm/me-checklist"
-                onClick={e =>
-                  this.props.downstreamHandlers.handleTrackEvent("Navigation", "Link click on About page", "Repository")
-                }
-              >
+              <a href="https://github.com/crookm/me-checklist">
                 repository
               </a>. If you'd like to visit me on{" "}
-              <a
-                href="https://www.crookm.com/"
-                onClick={e =>
-                  this.props.downstreamHandlers.handleTrackEvent("Navigation", "Link click on About page", "Blog")
-                }
-              >
+              <a href="https://mattcrook.io">
                 my blog
               </a>, or follow me on{" "}
-              <a
-                href="https://twitter.com/mattlc_3"
-                onClick={e =>
-                  this.props.downstreamHandlers.handleTrackEvent("Navigation", "Link click on About page", "Twitter")
-                }
-              >
+              <a href="https://twitter.com/mattlc_3">
                 Twitter
               </a>, I'd appreaciate it.
             </p>

@@ -710,7 +710,7 @@ export default {
   96: {
     title: `HINT: The big decision`,
     desc: `You can choose to save The Council, or hold back and go for Sovreign. Saving The Council is for paragon, and holding back is for renegade. You can choose either, but it affects the distribution of power in future games.<br /><br />
-      <b>Holding back</b> gives humanity the leading role in the galaxy, but some minor interactions in future games leads to some minor hostility from other races. The Turians enter something of an arms race against Humanity, but this turns out to be useful in the third game.<br /><br />
+      <b>Holding back</b> gives humanity the leading role in the galaxy, but some minor interactions in future games leads to some hostility from other races. The Turians enter something of an arms race against Humanity, but this turns out to be useful in the third game.<br /><br />
       <b>Saving The Council</b> results in Humanity be lauded as the saviour of The Citadel and Council, but results in the loss of a large portion of Humanity's fleet being annihilated. Leads to minor hostility from Humanity against you, and high reliance on other races for protection.`,
     timeline: {
       before: `Epilogue`,

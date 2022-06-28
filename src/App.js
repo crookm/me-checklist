@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import { createBrowserHistory, createHashHistory } from "history";
 
-import ReactGA from "react-ga";
-
 // error pages
 import NotFound from "./_pages/_errors/NotFound";
 
@@ -26,13 +24,8 @@ class App extends Component {
         )
     );
 
-    ReactGA.initialize("UA-135056719-1");
-
     this.pageViewTimerStart = new Date();
 
-    this.handleTrackEvent = this.handleTrackEvent.bind(this);
-    this.handleTrackRemoteSync = this.handleTrackRemoteSync.bind(this);
-    this.handleTrackPageView = this.handleTrackPageView.bind(this);
     this.handleSetPageTitle = this.handleSetPageTitle.bind(this);
     this.handleLoadUserData = this.handleLoadUserData.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
@@ -40,9 +33,6 @@ class App extends Component {
     this.handleSetUI = this.handleSetUI.bind(this);
 
     this.downstreamHandlers = {
-      handleTrackEvent: this.handleTrackEvent,
-      handleTrackRemoteSync: this.handleTrackRemoteSync,
-      handleTrackPageView: this.handleTrackPageView,
       handleSetPageTitle: this.handleSetPageTitle,
       handleLoadUserData: this.handleLoadUserData,
       handleToggle: this.handleToggle,
@@ -71,29 +61,6 @@ class App extends Component {
   }
 
   // functions for downstream pages
-  handleTrackEvent(category, action, label) {
-    ReactGA.event({
-      category: category,
-      action: action,
-      label: label
-    });
-  }
-
-  handleTrackRemoteSync(game, count, interacted) {
-    ReactGA.event({
-      category: "Checklist",
-      action: "Synced to cloud",
-      label: `G${game}`,
-      value: count,
-      nonInteraction: !interacted
-    });
-  }
-
-  handleTrackPageView() {
-    this.pageViewTimerStart = new Date();
-    ReactGA.pageview(window.location.pathname + window.location.search);
-  }
-
   handleSetPageTitle(name) {
     document.title = `${name} / Mass Effect Checklist`;
   }
@@ -117,14 +84,6 @@ class App extends Component {
           return out;
         }, {});
 
-        ReactGA.event({
-          category: "Checklist",
-          action: "Loaded local completed missions data",
-          label: `G${game}`,
-          value: completed,
-          nonInteraction: true
-        });
-
         set(hydrated);
       }
     }
@@ -146,13 +105,6 @@ class App extends Component {
         }, {})
       );
     }
-
-    ReactGA.event({
-      category: "Checklist",
-      action: "Toggle mission completion status",
-      label: `G${game}#${key}`,
-      value: toggled.done ? 1 : 0
-    });
 
     set(items); // return the new items so caller can update state
   }
@@ -177,33 +129,6 @@ class App extends Component {
 
       ui_settings[key] = value;
       window.localStorage["ui_settings"] = JSON.stringify(ui_settings);
-
-      let uiTrackIgnore = ["syncLink", "syncLast"];
-      if (!uiTrackIgnore.includes(key)) {
-        // ignore sensitive UI settings like the sync passphrase
-        ReactGA.event({
-          category: "UI",
-          action: "Toggled UI setting",
-          label: key,
-          value: value ? 1 : 0
-        });
-      }
-
-      if (key === "syncLink") {
-        if (value) {
-          // linked to account
-          ReactGA.event({
-            category: "UI",
-            action: "Connected cloud sync account"
-          });
-        } else {
-          // unlinked
-          ReactGA.event({
-            category: "UI",
-            action: "Disconnected cloud sync account"
-          });
-        }
-      }
     }
   }
 
