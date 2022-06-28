@@ -70,7 +70,7 @@ class App extends Component {
       if (typeof window.localStorage[game] === "string") {
         let data = JSON.parse(window.localStorage[game]);
 
-        let completed = 0;
+        // let completed = 0;
 
         let hydrated = Object.keys(def).reduce((out, current) => {
           out[current] = def[current];
@@ -80,7 +80,7 @@ class App extends Component {
             datetime: data[current] ? new Date(data[current].datetime) : null
           };
 
-          if (out[current].completion.done) completed++;
+          // if (out[current].completion.done) completed++;
           return out;
         }, {});
 
