@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9B37F5D2-8FEE-4BF8-B2EF-CA949B8B6FE5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D1D4C56E-DA5A-4740-9A45-353C5FDA6AA3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unit", "unit", "{548A01DE-8C1D-4C06-8FA5-8B47071E0130}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ui", "ui", "{FBE5ED9A-F316-4B7C-9D5C-C6CB36B16072}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassEffect.Checklist.Web", "src\MassEffect.Checklist.Web\MassEffect.Checklist.Web.csproj", "{EC3B7B77-9519-4695-8E1C-8F0C5B2EFE65}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "inspect", "inspect", "{A2D102BF-ED21-4A8D-A889-37CA9F0575DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassEffect.Checklist.Inspect.Contracts", "src\inspect\MassEffect.Checklist.Inspect.Contracts\MassEffect.Checklist.Inspect.Contracts.csproj", "{E6AEE1FF-4DF3-4D62-9781-F6236F8136B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProj", "src\inspect\TestProj\TestProj.csproj", "{B1D5BEDF-BC7C-4F53-8310-4ADEF4676E25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassEffect.Checklist.Inspect.Serializer", "src\inspect\MassEffect.Checklist.Inspect.Serializer\MassEffect.Checklist.Inspect.Serializer.csproj", "{763458B1-2F40-483A-A592-0CAF04112863}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{548A01DE-8C1D-4C06-8FA5-8B47071E0130} = {D1D4C56E-DA5A-4740-9A45-353C5FDA6AA3}
+		{FBE5ED9A-F316-4B7C-9D5C-C6CB36B16072} = {D1D4C56E-DA5A-4740-9A45-353C5FDA6AA3}
+		{EC3B7B77-9519-4695-8E1C-8F0C5B2EFE65} = {9B37F5D2-8FEE-4BF8-B2EF-CA949B8B6FE5}
+		{A2D102BF-ED21-4A8D-A889-37CA9F0575DA} = {9B37F5D2-8FEE-4BF8-B2EF-CA949B8B6FE5}
+		{E6AEE1FF-4DF3-4D62-9781-F6236F8136B1} = {A2D102BF-ED21-4A8D-A889-37CA9F0575DA}
+		{B1D5BEDF-BC7C-4F53-8310-4ADEF4676E25} = {A2D102BF-ED21-4A8D-A889-37CA9F0575DA}
+		{763458B1-2F40-483A-A592-0CAF04112863} = {A2D102BF-ED21-4A8D-A889-37CA9F0575DA}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EC3B7B77-9519-4695-8E1C-8F0C5B2EFE65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC3B7B77-9519-4695-8E1C-8F0C5B2EFE65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC3B7B77-9519-4695-8E1C-8F0C5B2EFE65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC3B7B77-9519-4695-8E1C-8F0C5B2EFE65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6AEE1FF-4DF3-4D62-9781-F6236F8136B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6AEE1FF-4DF3-4D62-9781-F6236F8136B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6AEE1FF-4DF3-4D62-9781-F6236F8136B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6AEE1FF-4DF3-4D62-9781-F6236F8136B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1D5BEDF-BC7C-4F53-8310-4ADEF4676E25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1D5BEDF-BC7C-4F53-8310-4ADEF4676E25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1D5BEDF-BC7C-4F53-8310-4ADEF4676E25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1D5BEDF-BC7C-4F53-8310-4ADEF4676E25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{763458B1-2F40-483A-A592-0CAF04112863}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{763458B1-2F40-483A-A592-0CAF04112863}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{763458B1-2F40-483A-A592-0CAF04112863}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{763458B1-2F40-483A-A592-0CAF04112863}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

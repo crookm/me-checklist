@@ -1,0 +1,28 @@
+@using System.ComponentModel.DataAnnotations
+@using MassEffect.Checklist.Web.Components.Logos
+
+<MudLink Href="@($"/check/{GameId}")" Class="select" Style="width: 100%; height: 100%;">
+    <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center"
+              Style="@($"width: 100%; height: 100%; background-image: url('/assets/img/game-bg-{GameId}.jpg')")">
+        @switch (GameId)
+        {
+            case 1:
+                <MassEffectOneLogo/>
+                break;
+            case 2:
+                <MassEffectTwoLogo/>
+                break;
+            case 3:
+                <MassEffectThreeLogo/>
+                break;
+        }
+    </MudStack>
+</MudLink>
+
+@code {
+
+    [Parameter]
+    [Required]
+    public int GameId { get; set; }
+
+}
