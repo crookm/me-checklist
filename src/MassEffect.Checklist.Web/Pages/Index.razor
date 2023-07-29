@@ -1,9 +1,11 @@
 ﻿@page "/"
 
+@using MassEffect.Checklist.Contracts
+
 <PageTitle>Game Selector / Mass Effect Checklist</PageTitle>
 
 <MudStack AlignItems="AlignItems.Stretch" Spacing="0" Class="flex-xs-column flex-md-row" Style="height: 100vh;">
-    <GameSelector GameId="1"/>
-    <GameSelector GameId="2"/>
-    <GameSelector GameId="3"/>
+    <GameSelector Game="Game.MassEffect1"/>
+    <GameSelector Game="Game.MassEffect2"/>
+    <GameSelector Game="Game.MassEffect3"/>
 </MudStack>

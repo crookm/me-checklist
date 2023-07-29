@@ -10,5 +10,9 @@
         <InternalsVisibleTo Include="*.Unit.Test" />
         <InternalsVisibleTo Include="MassEffect.Checklist.Inspect.Serializer" />
     </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\..\MassEffect.Checklist.Contracts\MassEffect.Checklist.Contracts.csproj" />
+    </ItemGroup>
 
 </Project>

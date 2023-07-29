@@ -1,18 +1,18 @@
-@using System.ComponentModel.DataAnnotations
 @using MassEffect.Checklist.Web.Components.Logos
+@using MassEffect.Checklist.Contracts
 
 <MudLink Href="@($"/check/{GameId}")" Class="select" Style="width: 100%; height: 100%;">
     <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center"
               Style="@($"width: 100%; height: 100%; background-image: url('/assets/img/game-bg-{GameId}.jpg')")">
-        @switch (GameId)
+        @switch (Game)
         {
-            case 1:
+            case Game.MassEffect1:
                 <MassEffectOneLogo/>
                 break;
-            case 2:
+            case Game.MassEffect2:
                 <MassEffectTwoLogo/>
                 break;
-            case 3:
+            case Game.MassEffect3:
                 <MassEffectThreeLogo/>
                 break;
         }
@@ -22,7 +22,8 @@
 @code {
 
     [Parameter]
-    [Required]
-    public int GameId { get; set; }
+    public Game Game { get; set; }
+    
+    public int GameId => (int)Game;
 
 }

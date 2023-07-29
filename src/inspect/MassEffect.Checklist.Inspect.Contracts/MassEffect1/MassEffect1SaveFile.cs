@@ -1,3 +1,5 @@
+using MassEffect.Checklist.Contracts;
+
 namespace MassEffect.Checklist.Inspect.Contracts.MassEffect1;
 
 public class MassEffect1SaveFile : ISaveFile

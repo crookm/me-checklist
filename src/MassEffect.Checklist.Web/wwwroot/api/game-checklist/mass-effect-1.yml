@@ -1,0 +1,24 @@
+- id: 1
+  title: "Find the Beacon"
+  section: "Prologue"
+  isSectionPromoted: true
+  description: |
+    You are in charge of the ground team dropped onto Eden Prime, an Alliance colony under attack.
+    Your primary goal is to find and secure the Prothean beacon.
+  wikiUri: "https://masseffect.fandom.com/wiki/Prologue:_Find_the_Beacon"
+  timeline:
+    afterNote: |
+      This is the first mission.
+    #beforeId: # TODO
+
+- id: 2
+  title: "Charm/intimidate skill"
+  section: "Hint"
+  isHint: true
+  description: |
+    Right throughout the game, a high charm or intimidate skill will help you out significantly, and expose you to more story.
+    Balance is not ideal here, stick to one or the other.
+  timeline:
+    afterId: 1
+    beforeNote: |
+      Citadel: Asari Consort, or Noveria: Lorik Qui'in

@@ -1,10 +1,41 @@
 @page "/check/{gameId:int}"
 
+@using Fluxor
+@using MassEffect.Checklist.Contracts
+@using MassEffect.Checklist.Web.Store.ChecklistUseCase.GameChecklist
+@using MassEffect.Checklist.Web.Store.ChecklistUseCase.GameChecklist.Actions
+
+@inherits CancellableFluxorComponent
+
+@inject IDispatcher Dispatcher
+@inject IState<GameChecklistState> ChecklistState
+
 <h3>Checklist</h3>
+
+@if (ChecklistState.Value.IsLoading)
+{
+    <MudText Typo="Typo.body1">Loading...</MudText>
+}
+else
+{
+    <ul>
+        @foreach (var entry in ChecklistState.Value.Entries)
+        {
+            <li>@entry.Section: @entry.Title</li>
+        }
+    </ul>
+}
 
 @code {
 
     [Parameter]
     public int GameId { get; set; }
+
+    private Game Game => (Game)GameId;
+
+    protected override void OnParametersSet()
+    {
+        Dispatcher.Dispatch(new FetchGameChecklistDataAction(Game) { CancellationToken = CancellationToken });
+    }
 
 }

@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProj", "src\inspect\Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassEffect.Checklist.Inspect.Serializer", "src\inspect\MassEffect.Checklist.Inspect.Serializer\MassEffect.Checklist.Inspect.Serializer.csproj", "{763458B1-2F40-483A-A592-0CAF04112863}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassEffect.Checklist.Web.Store", "src\MassEffect.Checklist.Web.Store\MassEffect.Checklist.Web.Store.csproj", "{BF128648-D341-4029-A6B5-C9EB4FE232BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassEffect.Checklist.Contracts", "src\MassEffect.Checklist.Contracts\MassEffect.Checklist.Contracts.csproj", "{5861D931-7514-4518-8989-0B123DABF51B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +41,8 @@ Global
 		{E6AEE1FF-4DF3-4D62-9781-F6236F8136B1} = {A2D102BF-ED21-4A8D-A889-37CA9F0575DA}
 		{B1D5BEDF-BC7C-4F53-8310-4ADEF4676E25} = {A2D102BF-ED21-4A8D-A889-37CA9F0575DA}
 		{763458B1-2F40-483A-A592-0CAF04112863} = {A2D102BF-ED21-4A8D-A889-37CA9F0575DA}
+		{BF128648-D341-4029-A6B5-C9EB4FE232BC} = {9B37F5D2-8FEE-4BF8-B2EF-CA949B8B6FE5}
+		{5861D931-7514-4518-8989-0B123DABF51B} = {9B37F5D2-8FEE-4BF8-B2EF-CA949B8B6FE5}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{EC3B7B77-9519-4695-8E1C-8F0C5B2EFE65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -55,5 +61,13 @@ Global
 		{763458B1-2F40-483A-A592-0CAF04112863}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{763458B1-2F40-483A-A592-0CAF04112863}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{763458B1-2F40-483A-A592-0CAF04112863}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF128648-D341-4029-A6B5-C9EB4FE232BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF128648-D341-4029-A6B5-C9EB4FE232BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF128648-D341-4029-A6B5-C9EB4FE232BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF128648-D341-4029-A6B5-C9EB4FE232BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5861D931-7514-4518-8989-0B123DABF51B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5861D931-7514-4518-8989-0B123DABF51B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5861D931-7514-4518-8989-0B123DABF51B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5861D931-7514-4518-8989-0B123DABF51B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

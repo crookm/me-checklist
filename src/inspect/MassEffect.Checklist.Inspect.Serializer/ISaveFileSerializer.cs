@@ -1,9 +1,12 @@
+using MassEffect.Checklist.Contracts;
 using MassEffect.Checklist.Inspect.Contracts;
 
 namespace MassEffect.Checklist.Inspect.Serializer;
 
 public interface ISaveFileSerializer<TGameImpl> where TGameImpl : ISaveFile
 {
+    Game ImplementedGame { get; }
+
     /// <summary>
     /// Deserializes a Mass Effect save game file from the given <paramref name="stream"/>
     /// </summary>
