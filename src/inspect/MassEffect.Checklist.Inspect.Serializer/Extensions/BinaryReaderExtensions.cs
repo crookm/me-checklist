@@ -3,11 +3,10 @@ using System.Numerics;
 using System.Text;
 using Ardalis.GuardClauses;
 using MassEffect.Checklist.Inspect.Contracts.Common;
-using InvalidOperationException = System.InvalidOperationException;
 
 namespace MassEffect.Checklist.Inspect.Serializer.Extensions;
 
-public static class BinaryReaderExtensions
+internal static class BinaryReaderExtensions
 {
     internal static Vector3 ReadVector(this BinaryReader reader)
     {

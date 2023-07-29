@@ -4,7 +4,7 @@ using MassEffect.Checklist.Inspect.Serializer.MassEffect1.Extensions;
 
 namespace MassEffect.Checklist.Inspect.Serializer.MassEffect1;
 
-internal class SaveFileReader
+public class SaveFileReader
 {
     private readonly BinaryReader _reader;
 

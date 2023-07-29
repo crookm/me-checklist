@@ -1,12 +1,11 @@
 using Ardalis.GuardClauses;
 using MassEffect.Checklist.Inspect.Contracts.Common;
-using MassEffect.Checklist.Inspect.Contracts.MassEffect1;
 using MassEffect.Checklist.Inspect.Contracts.MassEffect1.Records;
 using MassEffect.Checklist.Inspect.Serializer.Extensions;
 
 namespace MassEffect.Checklist.Inspect.Serializer.MassEffect1.Extensions;
 
-public static class BinaryReaderExtensions
+internal static class BinaryReaderExtensions
 {
     internal static SaveChunkHeaderRecord ReadSaveChunkHeader(this BinaryReader reader, CancellationToken token = default)
     {
@@ -44,7 +43,7 @@ public static class BinaryReaderExtensions
         };
     }
 
-    internal static AppearanceSaveRecord ReadAppearanceSaveRecord(this BinaryReader reader)
+    private static AppearanceSaveRecord ReadAppearanceSaveRecord(this BinaryReader reader)
     {
         Guard.Against.Null(reader);
         Guard.Against.Zero(reader.BaseStream.Length);
@@ -73,7 +72,7 @@ public static class BinaryReaderExtensions
         return record;
     }
 
-    internal static ComplexTalentSaveRecord ReadComplexTalentSaveRecord(this BinaryReader reader)
+    private static ComplexTalentSaveRecord ReadComplexTalentSaveRecord(this BinaryReader reader)
     {
         Guard.Against.Null(reader);
         Guard.Against.Zero(reader.BaseStream.Length);
@@ -91,7 +90,7 @@ public static class BinaryReaderExtensions
         };
     }
 
-    internal static ItemSaveRecord ReadItemSaveRecord(this BinaryReader reader, bool isMod = false)
+    private static ItemSaveRecord ReadItemSaveRecord(this BinaryReader reader, bool isMod = false)
     {
         Guard.Against.Null(reader);
         Guard.Against.Zero(reader.BaseStream.Length);
